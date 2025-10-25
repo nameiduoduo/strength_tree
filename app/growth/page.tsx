@@ -121,7 +121,7 @@ export default function GrowthPage() {
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow p-6 mb-4 space-y-4">
               <div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">
-                  才干组合解读
+                  🎯 盖洛普优势前五才干解读
                 </h3>
                 <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
                   {profile.analysis.talentsAnalysis}
@@ -129,7 +129,7 @@ export default function GrowthPage() {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">
-                  MBTI协同分析
+                  🧠 MBTI分析
                 </h3>
                 <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
                   {profile.analysis.synergyAnalysis}

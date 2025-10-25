@@ -18,12 +18,12 @@ export default function InitialAnalysis({ analysis }: InitialAnalysisProps) {
         </p>
       </div>
 
-      {/* 才干组合解读 */}
+      {/* 盖洛普优势前五才干解读 */}
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
         <div className="flex items-center gap-2 mb-4">
           <span className="text-2xl">🎯</span>
           <h3 className="text-xl font-bold text-gray-900">
-            才干组合解读
+            盖洛普优势前五才干解读
           </h3>
         </div>
         <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
@@ -31,12 +31,12 @@ export default function InitialAnalysis({ analysis }: InitialAnalysisProps) {
         </p>
       </div>
 
-      {/* MBTI协同分析 */}
+      {/* MBTI分析 */}
       <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
         <div className="flex items-center gap-2 mb-4">
           <span className="text-2xl">🧠</span>
           <h3 className="text-xl font-bold text-gray-900">
-            MBTI协同分析
+            MBTI分析
           </h3>
         </div>
         <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">
