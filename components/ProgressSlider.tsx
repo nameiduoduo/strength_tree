@@ -10,17 +10,39 @@ export default function ProgressSlider({ value, onChange }: ProgressSliderProps)
     onChange(Number(e.target.value));
   };
 
+  // 根据进度值计算颜色
+  const getProgressColor = (progress: number) => {
+    if (progress === 0) return 'from-gray-100 to-gray-200';
+    if (progress <= 25) return 'from-blue-100 to-blue-200';
+    if (progress <= 50) return 'from-blue-200 to-blue-300';
+    if (progress <= 75) return 'from-blue-300 to-blue-400';
+    if (progress < 100) return 'from-blue-400 to-blue-500';
+    return 'from-green-400 to-green-500';
+  };
+
+  // 根据进度值获取文字颜色
+  const getTextColor = (progress: number) => {
+    if (progress === 0) return 'text-gray-600';
+    if (progress < 100) return 'text-blue-600';
+    return 'text-green-600';
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <label className="text-sm font-medium text-gray-700">
           设置你的目标完成度
         </label>
-        <span className="text-3xl font-bold text-blue-600">{value}%</span>
+        <span className={`text-3xl font-bold ${getTextColor(value)} transition-colors duration-300`}>
+          {value}%
+        </span>
       </div>
 
-      <div className="relative">
-        {/* 滑块 */}
+      {/* 渐变色块容器 */}
+      <div
+        className={`relative rounded-2xl p-8 bg-gradient-to-r ${getProgressColor(value)} transition-all duration-500 ease-out shadow-lg`}
+      >
+        {/* 滑块输入 */}
         <input
           type="range"
           min="0"
@@ -28,31 +50,31 @@ export default function ProgressSlider({ value, onChange }: ProgressSliderProps)
           step="5"
           value={value}
           onChange={handleChange}
-          className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer
+          className="w-full h-3 bg-white/30 rounded-full appearance-none cursor-pointer backdrop-blur-sm
                      [&::-webkit-slider-thumb]:appearance-none
                      [&::-webkit-slider-thumb]:w-6
                      [&::-webkit-slider-thumb]:h-6
-                     [&::-webkit-slider-thumb]:bg-blue-600
+                     [&::-webkit-slider-thumb]:bg-white
                      [&::-webkit-slider-thumb]:rounded-full
-                     [&::-webkit-slider-thumb]:cursor-pointer
-                     [&::-webkit-slider-thumb]:shadow-lg
-                     [&::-webkit-slider-thumb]:hover:bg-blue-700
-                     [&::-webkit-slider-thumb]:transition-all
+                     [&::-webkit-slider-thumb]:cursor-grab
+                     [&::-webkit-slider-thumb]:shadow-xl
+                     [&::-webkit-slider-thumb]:hover:scale-125
+                     [&::-webkit-slider-thumb]:active:cursor-grabbing
+                     [&::-webkit-slider-thumb]:active:scale-110
+                     [&::-webkit-slider-thumb]:transition-transform
+                     [&::-webkit-slider-thumb]:duration-200
                      [&::-moz-range-thumb]:w-6
                      [&::-moz-range-thumb]:h-6
-                     [&::-moz-range-thumb]:bg-blue-600
+                     [&::-moz-range-thumb]:bg-white
                      [&::-moz-range-thumb]:border-0
                      [&::-moz-range-thumb]:rounded-full
-                     [&::-moz-range-thumb]:cursor-pointer
-                     [&::-moz-range-thumb]:shadow-lg
-                     [&::-moz-range-thumb]:hover:bg-blue-700
-                     [&::-moz-range-thumb]:transition-all"
-        />
-
-        {/* 进度条背景 */}
-        <div
-          className="absolute top-0 left-0 h-3 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg pointer-events-none transition-all duration-300"
-          style={{ width: `${value}%` }}
+                     [&::-moz-range-thumb]:cursor-grab
+                     [&::-moz-range-thumb]:shadow-xl
+                     [&::-moz-range-thumb]:hover:scale-125
+                     [&::-moz-range-thumb]:active:cursor-grabbing
+                     [&::-moz-range-thumb]:active:scale-110
+                     [&::-moz-range-thumb]:transition-transform
+                     [&::-moz-range-thumb]:duration-200"
         />
       </div>
 
