@@ -8,15 +8,8 @@ export type GallupTalent =
   | '完美' | '积极' | '交往' | '责任' | '排难'
   | '自信' | '追求' | '战略' | '取悦';
 
-// MBTI类型
-export type MBTIType =
-  | 'INTJ' | 'INTP' | 'ENTJ' | 'ENTP'
-  | 'INFJ' | 'INFP' | 'ENFJ' | 'ENFP'
-  | 'ISTJ' | 'ISFJ' | 'ESTJ' | 'ESFJ'
-  | 'ISTP' | 'ISFP' | 'ESTP' | 'ESFP';
-
-// 场景类型
-export type ScenarioType = '关系' | '工作' | '副业';
+// 盖洛普维度类型
+export type GallupCategory = '战略思维' | '关系建立' | '影响力' | '执行力';
 
 // 任务接口
 export interface Task {
@@ -36,24 +29,22 @@ export interface Suggestion {
 // 单个才干解读
 export interface TalentAnalysis {
   talent: GallupTalent;
-  category: '执行力' | '影响力' | '关系建立' | '战略思维';
+  category: GallupCategory;
   analysis: string;
 }
 
 // AI解读接口
 export interface Analysis {
-  individualTalents: TalentAnalysis[];  // 每个才干的单独解读
-  overallAnalysis: string;  // 五个才干的整体解读
-  synergyAnalysis: string;  // MBTI与才干协同分析
+  overallAnalysis: string;  // 34个才干的整体解读
+  categoryAnalysis: string; // 4个维度的协同分析
 }
 
 // 用户档案接口
 export interface UserProfile {
   id: string;
-  talents: GallupTalent[];      // 5项才干
-  mbti: MBTIType;               // MBTI类型
+  talents: GallupTalent[];      // 34项才干(有序)
+  categories: GallupCategory[]; // 4个维度(有序)
   analysis: Analysis | null;    // AI解读
-  scenario: ScenarioType | null; // 选择的场景
   suggestions: Suggestion[];    // 建议列表
   progress: number;             // 完成进度 0-100
   createdAt: string;
@@ -72,8 +63,7 @@ export interface TreeState {
 // API请求接口
 export interface AnalysisRequest {
   talents: GallupTalent[];
-  mbti: MBTIType;
-  scenario: ScenarioType;
+  categories: GallupCategory[];
 }
 
 // API响应接口

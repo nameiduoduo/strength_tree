@@ -1,4 +1,4 @@
-import { GallupTalent, MBTIType } from '@/types';
+import { GallupTalent } from '@/types';
 
 // 才干维度类型
 export type TalentCategory = '执行力' | '影响力' | '关系建立' | '战略思维';
@@ -86,44 +86,3 @@ export const GALLUP_TALENTS: TalentInfo[] = [
   { name: '分析', description: '寻找原因和证据,深入分析', category: '战略思维' },
   { name: '理念', description: '被新想法和概念吸引', category: '战略思维' },
 ];
-
-// MBTI类型数据
-export interface MBTIInfo {
-  type: MBTIType;
-  name: string;
-  description: string;
-  traits: string[];
-}
-
-export const MBTI_TYPES: MBTIInfo[] = [
-  // 分析家
-  { type: 'INTJ', name: '建筑师', description: '富有想象力和战略性的思考者', traits: ['独立', '战略', '理性', '创新'] },
-  { type: 'INTP', name: '逻辑学家', description: '具有创造力的发明家', traits: ['好奇', '分析', '灵活', '理论'] },
-  { type: 'ENTJ', name: '指挥官', description: '大胆、富有想象力的领导者', traits: ['果断', '领导', '高效', '自信'] },
-  { type: 'ENTP', name: '辩论家', description: '聪明好奇的思想家', traits: ['创新', '辩论', '适应', '聪慧'] },
-
-  // 外交家
-  { type: 'INFJ', name: '提倡者', description: '安静而神秘的理想主义者', traits: ['洞察', '理想', '坚定', '富同情心'] },
-  { type: 'INFP', name: '调停者', description: '诗意而善良的利他主义者', traits: ['理想', '忠诚', '开放', '灵活'] },
-  { type: 'ENFJ', name: '主人公', description: '富有魅力且鼓舞人心的领导者', traits: ['善于激励', '同理心', '组织', '热情'] },
-  { type: 'ENFP', name: '竞选者', description: '热情、有创造力的社交家', traits: ['热情', '创造', '外向', '灵活'] },
-
-  // 守护者
-  { type: 'ISTJ', name: '物流师', description: '实际而注重事实的个人', traits: ['可靠', '实际', '有条理', '忠诚'] },
-  { type: 'ISFJ', name: '守卫者', description: '非常专注且温暖的守护者', traits: ['保护', '细致', '负责', '传统'] },
-  { type: 'ESTJ', name: '总经理', description: '出色的管理者和组织者', traits: ['有组织', '实际', '直接', '传统'] },
-  { type: 'ESFJ', name: '执政官', description: '极有同情心和受欢迎的人', traits: ['合作', '热心', '有组织', '忠诚'] },
-
-  // 探险家
-  { type: 'ISTP', name: '鉴赏家', description: '大胆而实际的实验家', traits: ['灵活', '实际', '独立', '好奇'] },
-  { type: 'ISFP', name: '探险家', description: '灵活而富有魅力的艺术家', traits: ['敏感', '友好', '艺术', '灵活'] },
-  { type: 'ESTP', name: '企业家', description: '聪明、精力充沛的冒险家', traits: ['行动', '适应', '务实', '社交'] },
-  { type: 'ESFP', name: '表演者', description: '自然而兴奋的娱乐者', traits: ['外向', '友好', '接受', '自发'] },
-];
-
-// 场景类型
-export const SCENARIOS = [
-  { value: '关系', label: '关系', icon: '💕', description: '改善人际关系、亲密关系、家庭关系' },
-  { value: '工作', label: '职业发展', icon: '💼', description: '提升职场表现、团队协作、职业发展' },
-  { value: '副业', label: '副业', icon: '🚀', description: '开启新项目、发展兴趣、创造收入' },
-] as const;

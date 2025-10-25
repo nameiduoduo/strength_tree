@@ -1,6 +1,6 @@
 import { UserProfile } from '@/types';
 
-const STORAGE_KEY = 'gallup-mbti-profile';
+const STORAGE_KEY = 'gallup-profile';
 
 // 保存用户档案到LocalStorage
 export function saveProfile(profile: UserProfile): void {

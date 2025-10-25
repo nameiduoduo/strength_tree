@@ -64,8 +64,8 @@ export default function TalentSelector({ selectedTalents, onSelect }: TalentSele
       // 取消选择
       onSelect(selectedTalents.filter(t => t !== talent));
     } else {
-      // 选择(最多5个)
-      if (selectedTalents.length < 5) {
+      // 选择(最多34个)
+      if (selectedTalents.length < 34) {
         onSelect([...selectedTalents, talent]);
       }
     }
@@ -81,10 +81,10 @@ export default function TalentSelector({ selectedTalents, onSelect }: TalentSele
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-gray-900">
-          选择你的盖洛普优势才干
+          选择你的34项盖洛普才干
         </h2>
         <span className="text-sm text-gray-500">
-          已选择 {selectedTalents.length}/5
+          已选择 {selectedTalents.length}/34
         </span>
       </div>
 
@@ -119,11 +119,11 @@ export default function TalentSelector({ selectedTalents, onSelect }: TalentSele
             <button
               key={talent.name}
               onClick={() => handleToggle(talent.name)}
-              disabled={!isSelected && selectedTalents.length >= 5}
+              disabled={!isSelected && selectedTalents.length >= 34}
               className={`relative p-4 rounded-lg border-2 text-left transition-all ${
                 isSelected
                   ? `${talentColors.border} ${talentColors.lightBg}`
-                  : selectedTalents.length >= 5
+                  : selectedTalents.length >= 34
                   ? 'border-gray-200 bg-gray-50 opacity-50 cursor-not-allowed'
                   : `border-gray-200 bg-white ${talentColors.hover} hover:shadow-md`
               }`}

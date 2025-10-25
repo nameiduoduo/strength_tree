@@ -6,7 +6,6 @@ import { UserProfile } from '@/types';
 import { loadProfile, saveProfile, calculateProgress } from '@/lib/storage';
 import GrowthTree from '@/components/GrowthTree';
 import TaskChecklist from '@/components/TaskChecklist';
-import InitialAnalysis from '@/components/InitialAnalysis';
 
 export default function GrowthPage() {
   const router = useRouter();
@@ -50,7 +49,7 @@ export default function GrowthPage() {
 
   const handleReset = () => {
     if (confirm('确定要重新开始吗?这将清除当前所有数据。')) {
-      localStorage.removeItem('gallup-mbti-profile');
+      localStorage.removeItem('gallup-profile');
       router.push('/');
     }
   };
@@ -89,38 +88,56 @@ export default function GrowthPage() {
 
           {/* 用户信息 */}
           <div className="bg-white rounded-lg shadow p-4 mb-4">
-            <div className="flex flex-wrap gap-4 items-center">
-              <div>
-                <span className="text-sm text-gray-500">才干优势:</span>
-                <span className="ml-2 text-sm font-semibold text-blue-600">
-                  {profile.talents.join('、')}
-                </span>
+            <div className="space-y-4">
+              <div className="flex flex-wrap gap-2 items-center">
+                <span className="text-sm text-gray-500">维度优先级:</span>
+                <div className="flex gap-2">
+                  {profile.categories.map((cat, i) => (
+                    <span key={cat} className="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-700">
+                      {i + 1}. {cat}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <div>
-                <span className="text-sm text-gray-500">MBTI:</span>
-                <span className="ml-2 text-sm font-semibold text-purple-600">
-                  {profile.mbti}
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-500">才干排序(前10):</span>
+                <span className="text-xs text-gray-700">
+                  {profile.talents.slice(0, 10).join('、')}...
                 </span>
+                <button
+                  onClick={() => setShowAnalysis(!showAnalysis)}
+                  className="ml-auto text-sm text-blue-600 hover:underline"
+                >
+                  {showAnalysis ? '隐藏详情' : '查看详情'}
+                </button>
               </div>
-              <div>
-                <span className="text-sm text-gray-500">关注场景:</span>
-                <span className="ml-2 text-sm font-semibold text-green-600">
-                  {profile.scenario}
-                </span>
-              </div>
-              <button
-                onClick={() => setShowAnalysis(!showAnalysis)}
-                className="ml-auto text-sm text-blue-600 hover:underline"
-              >
-                {showAnalysis ? '隐藏AI解读' : '查看AI解读'}
-              </button>
             </div>
           </div>
 
           {/* AI解读(可折叠) */}
           {showAnalysis && profile.analysis && (
-            <div className="bg-white rounded-lg shadow p-6 mb-4">
-              <InitialAnalysis analysis={profile.analysis} />
+            <div className="bg-white rounded-lg shadow p-6 mb-4 space-y-6">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">完整才干排序</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {profile.talents.map((talent, i) => (
+                    <div key={talent} className="text-sm">
+                      <span className="text-gray-500">{i + 1}.</span>{' '}
+                      <span className="text-gray-900">{talent}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">整体分析</h3>
+                <p className="text-gray-700 whitespace-pre-line">{profile.analysis.overallAnalysis}</p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">维度协同分析</h3>
+                <p className="text-gray-700 whitespace-pre-line">{profile.analysis.categoryAnalysis}</p>
+              </div>
             </div>
           )}
         </div>
