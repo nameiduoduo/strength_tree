@@ -15,7 +15,7 @@ export default function WelcomeTree() {
     // 动画播放完成后显示提示文字
     const timer = setTimeout(() => {
       setShowPrompt(true)
-    }, 3000) // 3秒后显示提示
+    }, 300) // 0.3秒后显示提示
 
     return () => clearTimeout(timer)
   }, [])
@@ -62,7 +62,7 @@ export default function WelcomeTree() {
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
+        transition={{ duration: 0.3, delay: 0 }}
         className="absolute top-16 md:top-20 text-center z-10 px-4"
       >
         <h1 className="text-4xl md:text-6xl font-bold text-white/90 tracking-tight mb-4">
@@ -77,7 +77,7 @@ export default function WelcomeTree() {
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.3 }}
         className="w-full max-w-md md:max-w-lg lg:max-w-xl relative z-10"
       >
         <Lottie
@@ -93,7 +93,7 @@ export default function WelcomeTree() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: showPrompt ? 1 : 0, y: showPrompt ? 0 : 20 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.3 }}
         className="absolute bottom-16 md:bottom-20 text-center z-10 px-4"
       >
         <motion.p

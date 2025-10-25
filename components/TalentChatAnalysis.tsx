@@ -18,7 +18,7 @@ export default function TalentChatAnalysis({ talents, categories, onComplete }: 
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: '你好!我是你的盖洛普才干教练。\n\n接下来,我会通过了解你的真实经历来帮助你更好地认识自己的才干。请分享一些你的故事:\n\n- 你曾经完成过什么让自己感到特别有成就感的事情?\n- 在工作或生活中,什么类型的任务让你感到特别顺手?\n- 别人经常在哪些方面寻求你的帮助?\n\n请随意分享,我会根据你的经历来分析可能体现的才干特质。'
+      content: '你好!我是你的盖洛普优势教练。\n\n接下来,我会通过了解你的真实经历来帮助你更好地认识自己的才干。请分享你的故事,如果不知道分享什么,也可以回答下面的问题先开始解读。\n\n- 你曾经完成过什么让自己感到特别有成就感的事情?\n- 在工作或生活中,什么类型的任务让你感到特别顺手?\n- 别人经常在哪些方面寻求你的帮助?\n\n请随意分享,我会根据你的经历来分析可能体现的才干。'
     }
   ]);
   const [input, setInput] = useState('');
