@@ -3,12 +3,13 @@
 import { useEffect, useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import Lottie from 'lottie-react'
+import Lottie, { LottieRefCurrentProps } from 'lottie-react'
+import treeAnimation from '../public/animations/tree-elegant.json'
 
 export default function WelcomeTree() {
   const router = useRouter()
   const [showPrompt, setShowPrompt] = useState(false)
-  const lottieRef = useRef<any>(null)
+  const lottieRef = useRef<LottieRefCurrentProps>(null)
 
   useEffect(() => {
     // 动画播放完成后显示提示文字
@@ -81,7 +82,7 @@ export default function WelcomeTree() {
       >
         <Lottie
           lottieRef={lottieRef}
-          animationData={require('../public/animations/tree-elegant.json')}
+          animationData={treeAnimation}
           loop={true}
           autoplay={true}
           style={{ width: '100%', height: 'auto' }}
