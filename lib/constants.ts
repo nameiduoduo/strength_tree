@@ -1,10 +1,46 @@
 import { GallupTalent, MBTIType } from '@/types';
 
+// 才干维度类型
+export type TalentCategory = '执行力' | '影响力' | '关系建立' | '战略思维';
+
+// 才干维度颜色配置
+export const CATEGORY_COLORS: Record<TalentCategory, {
+  bg: string;
+  border: string;
+  text: string;
+  gradient: string;
+}> = {
+  '执行力': {
+    bg: 'bg-purple-50',
+    border: 'border-purple-200',
+    text: 'text-purple-700',
+    gradient: 'from-purple-50 to-purple-100',
+  },
+  '影响力': {
+    bg: 'bg-orange-50',
+    border: 'border-orange-200',
+    text: 'text-orange-700',
+    gradient: 'from-orange-50 to-orange-100',
+  },
+  '关系建立': {
+    bg: 'bg-blue-50',
+    border: 'border-blue-200',
+    text: 'text-blue-700',
+    gradient: 'from-blue-50 to-blue-100',
+  },
+  '战略思维': {
+    bg: 'bg-green-50',
+    border: 'border-green-200',
+    text: 'text-green-700',
+    gradient: 'from-green-50 to-green-100',
+  },
+};
+
 // 盖洛普34项才干数据
 export interface TalentInfo {
   name: GallupTalent;
   description: string;
-  category: '执行力' | '影响力' | '关系建立' | '战略思维';
+  category: TalentCategory;
 }
 
 export const GALLUP_TALENTS: TalentInfo[] = [

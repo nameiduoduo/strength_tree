@@ -33,10 +33,18 @@ export interface Suggestion {
   tasks: Task[];
 }
 
+// 单个才干解读
+export interface TalentAnalysis {
+  talent: GallupTalent;
+  category: '执行力' | '影响力' | '关系建立' | '战略思维';
+  analysis: string;
+}
+
 // AI解读接口
 export interface Analysis {
-  talentsAnalysis: string;  // 才干解读
-  synergyAnalysis: string;  // 协同分析
+  individualTalents: TalentAnalysis[];  // 每个才干的单独解读
+  overallAnalysis: string;  // 五个才干的整体解读
+  synergyAnalysis: string;  // MBTI与才干协同分析
 }
 
 // 用户档案接口

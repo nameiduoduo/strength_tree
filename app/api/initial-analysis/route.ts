@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GallupTalent, MBTIType, Analysis } from '@/types';
 import { createInitialAnalysisPrompt } from '@/lib/prompts';
 import { callOpenRouter, extractJSON } from '@/lib/openrouter';
+import { GALLUP_TALENTS } from '@/lib/constants';
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,13 +44,29 @@ export async function POST(request: NextRequest) {
     const parsedData = extractJSON(aiResponse);
 
     // 验证响应格式
-    if (!parsedData.talentsAnalysis || !parsedData.synergyAnalysis) {
+    if (!parsedData.individualTalents || !parsedData.overallAnalysis || !parsedData.synergyAnalysis) {
       throw new Error('AI响应格式不正确');
     }
 
+    // 为每个才干添加category信息
+    interface ParsedTalent {
+      talent: string;
+      analysis: string;
+    }
+
+    const individualTalentsWithCategory = (parsedData.individualTalents as ParsedTalent[]).map((item) => {
+      const talentInfo = GALLUP_TALENTS.find(t => t.name === item.talent);
+      return {
+        talent: item.talent as GallupTalent,
+        category: talentInfo?.category || '执行力',
+        analysis: item.analysis,
+      };
+    });
+
     const response: { analysis: Analysis } = {
       analysis: {
-        talentsAnalysis: parsedData.talentsAnalysis as string,
+        individualTalents: individualTalentsWithCategory,
+        overallAnalysis: parsedData.overallAnalysis as string,
         synergyAnalysis: parsedData.synergyAnalysis as string,
       },
     };

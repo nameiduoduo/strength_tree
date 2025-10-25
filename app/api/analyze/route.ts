@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { AnalysisRequest, AnalysisResponse, Suggestion } from '@/types';
 import { createAnalysisPrompt } from '@/lib/prompts';
 import { callOpenRouter, extractJSON } from '@/lib/openrouter';
+import { GALLUP_TALENTS } from '@/lib/constants';
 
 export async function POST(request: NextRequest) {
   try {
@@ -48,6 +49,8 @@ export async function POST(request: NextRequest) {
     const parsedData = extractJSON(aiResponse);
 
     // 验证响应格式
+    // 注意: 这个API使用旧的createAnalysisPrompt,返回格式包含talentsAnalysis
+    // 为了向后兼容,我们将其转换为新格式
     if (!parsedData.talentsAnalysis || !parsedData.synergyAnalysis || !parsedData.suggestions) {
       throw new Error('AI响应格式不正确');
     }
@@ -72,9 +75,18 @@ export async function POST(request: NextRequest) {
       })),
     }));
 
+    // 转换为新格式 - 由于旧API返回的是整体分析,我们创建一个简化的结构
     const response: AnalysisResponse = {
       analysis: {
-        talentsAnalysis: parsedData.talentsAnalysis as string,
+        individualTalents: talents.map(talent => {
+          const talentInfo = GALLUP_TALENTS.find(t => t.name === talent);
+          return {
+            talent,
+            category: talentInfo?.category || '执行力',
+            analysis: '', // 旧API不提供单独的才干解读
+          };
+        }),
+        overallAnalysis: parsedData.talentsAnalysis as string,
         synergyAnalysis: parsedData.synergyAnalysis as string,
       },
       suggestions,
