@@ -4,15 +4,11 @@ import { HttpsProxyAgent } from 'https-proxy-agent';
 
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-// 如果 DeepSeek 被限流，自动切换到备用模型
-const MODEL = process.env.OPENROUTER_MODEL || 'deepseek/deepseek-chat';
+// 只使用 DeepSeek 付费模型以保证效果
+const MODEL = 'deepseek/deepseek-chat';
 
-// 备用模型列表（当主模型失败时尝试）
-const FALLBACK_MODELS = [
-  'deepseek/deepseek-chat', // 付费模型,稳定可靠
-  'deepseek/deepseek-chat-v3.1:free', // 免费模型,可能限流
-  'mistralai/mistral-small-3.1-24b-instruct:free',
-];
+// 不再使用备用模型,专注于单一付费模型的稳定性
+const FALLBACK_MODELS: string[] = [];
 
 // 从环境变量读取代理配置（可选）
 const PROXY_URL = process.env.HTTP_PROXY || process.env.HTTPS_PROXY;
@@ -28,14 +24,6 @@ const axiosInstance = axios.create({
       }),
   timeout: 120000, // 增加到120秒
 });
-
-// 输出配置信息（仅开发环境）
-if (process.env.NODE_ENV === 'development') {
-  console.log('OpenRouter 配置:');
-  console.log('- 模型:', MODEL);
-  console.log('- 代理:', PROXY_URL || '无');
-  console.log('- API Key:', process.env.OPENROUTER_API_KEY ? '已配置' : '未配置');
-}
 
 export interface OpenRouterMessage {
   role: 'user' | 'assistant' | 'system';
@@ -100,8 +88,8 @@ export async function callOpenRouter(
             headers: {
               'Authorization': `Bearer ${apiKey}`,
               'Content-Type': 'application/json',
-              'HTTP-Referer': 'https://gallup-product.com',
-              'X-Title': 'Gallup MBTI Growth Advisor',
+              'HTTP-Referer': 'https://strength_tree.com',
+              'X-Title': 'Strength Tree',
             },
           }
         );

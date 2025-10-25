@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { UserProfile } from '@/types';
 import { loadProfile, saveProfile, calculateProgress } from '@/lib/storage';
-import GrowthTree from '@/components/GrowthTree';
 import TaskChecklist from '@/components/TaskChecklist';
 
 export default function GrowthPage() {
@@ -70,13 +69,13 @@ export default function GrowthPage() {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-green-50">
+      <div className="max-w-5xl mx-auto">
         {/* 头部 */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-3xl font-bold text-gray-900">
-              你的成长之树 🌳
+              你的成长建议 🌱
             </h1>
             <button
               onClick={handleReset}
@@ -142,64 +141,12 @@ export default function GrowthPage() {
           )}
         </div>
 
-        {/* 主内容区 - 左右布局 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* 左侧:生长树 */}
-          <div className="lg:sticky lg:top-8 lg:self-start">
-            <GrowthTree progress={profile.progress} />
-
-            {/* 统计信息 */}
-            <div className="mt-6 bg-white rounded-xl shadow p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">
-                完成统计
-              </h3>
-              {(() => {
-                let totalTasks = 0;
-                let completedTasks = 0;
-                profile.suggestions.forEach(s => {
-                  s.tasks.forEach(t => {
-                    totalTasks++;
-                    if (t.completed) completedTasks++;
-                  });
-                });
-
-                return (
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">总任务数</span>
-                      <span className="text-lg font-bold text-gray-900">{totalTasks}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">已完成</span>
-                      <span className="text-lg font-bold text-green-600">{completedTasks}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">待完成</span>
-                      <span className="text-lg font-bold text-orange-600">
-                        {totalTasks - completedTasks}
-                      </span>
-                    </div>
-                    <div className="pt-3 border-t border-gray-200">
-                      <div className="text-xs text-gray-500 mb-1">
-                        创建时间: {new Date(profile.createdAt).toLocaleString('zh-CN')}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        更新时间: {new Date(profile.updatedAt).toLocaleString('zh-CN')}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })()}
-            </div>
-          </div>
-
-          {/* 右侧:任务清单 */}
-          <div>
-            <TaskChecklist
-              suggestions={profile.suggestions}
-              onTaskToggle={handleTaskToggle}
-            />
-          </div>
+        {/* 建议列表 */}
+        <div>
+          <TaskChecklist
+            suggestions={profile.suggestions}
+            onTaskToggle={handleTaskToggle}
+          />
         </div>
       </div>
     </div>

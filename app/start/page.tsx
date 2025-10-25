@@ -5,35 +5,47 @@ import { useRouter } from 'next/navigation';
 import { GallupTalent, GallupCategory } from '@/types';
 import TalentSelector from '@/components/TalentSelector';
 import CategorySelector from '@/components/CategorySelector';
+import TalentChatAnalysis from '@/components/TalentChatAnalysis';
+import GoalSetting from '@/components/GoalSetting';
+
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
 
 export default function Home() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [talents, setTalents] = useState<GallupTalent[]>([]);
   const [categories, setCategories] = useState<GallupCategory[]>([]);
+  const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const canProceedStep1 = talents.length === 34;
   const canProceedStep2 = categories.length === 4;
 
-  // 步骤2完成后：生成分析并跳转
-  const handleFinalSubmit = async () => {
-    if (!canProceedStep2) return;
+  // 步骤3完成后：保存对话历史,进入步骤4
+  const handleChatComplete = (history: Message[]) => {
+    setChatHistory(history);
+    setStep(4);
+  };
 
+  // 步骤4完成后：生成最终建议并跳转
+  const handleGoalSubmit = async (goal: string) => {
     setLoading(true);
     setError('');
 
     try {
-      const response = await fetch('/api/analyze', {
+      const response = await fetch('/api/final-suggestions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ talents, categories }),
+        body: JSON.stringify({ talents, categories, chatHistory, goal }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || '分析失败');
+        throw new Error(errorData.error || '生成建议失败');
       }
 
       const data = await response.json();
@@ -70,14 +82,16 @@ export default function Home() {
             发现你的盖洛普优势 🌱
           </h1>
           <p className="text-lg text-gray-600">
-            按顺序选择你的34项才干和4个维度,AI为你打造专属成长路径
+            {step <= 2 && '按顺序选择你的34项才干和4个维度'}
+            {step === 3 && '分享你的经历,深入了解你的才干'}
+            {step === 4 && '设定改变目标,获取针对性建议'}
           </p>
         </div>
 
         {/* 进度指示器 */}
         <div className="flex items-center justify-center mb-12">
           <div className="flex items-center space-x-4">
-            {[1, 2].map(s => (
+            {[1, 2, 3, 4].map(s => (
               <div key={s} className="flex items-center">
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
@@ -88,7 +102,7 @@ export default function Home() {
                 >
                   {s}
                 </div>
-                {s < 2 && (
+                {s < 4 && (
                   <div
                     className={`w-12 h-1 mx-2 ${
                       step > s ? 'bg-blue-600' : 'bg-gray-200'
@@ -116,6 +130,21 @@ export default function Home() {
             />
           )}
 
+          {step === 3 && (
+            <TalentChatAnalysis
+              talents={talents}
+              categories={categories}
+              onComplete={handleChatComplete}
+            />
+          )}
+
+          {step === 4 && (
+            <GoalSetting
+              onSubmit={handleGoalSubmit}
+              loading={loading}
+            />
+          )}
+
           {error && (
             <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
               {error}
@@ -124,57 +153,37 @@ export default function Home() {
         </div>
 
         {/* 底部按钮 */}
-        <div className="flex items-center justify-between">
-          <button
-            onClick={() => setStep(Math.max(1, step - 1))}
-            disabled={step === 1 || loading}
-            className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            上一步
-          </button>
-
-          {step === 1 && (
+        {step <= 2 && (
+          <div className="flex items-center justify-between">
             <button
-              onClick={() => setStep(2)}
-              disabled={!canProceedStep1}
-              className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => setStep(Math.max(1, step - 1))}
+              disabled={step === 1 || loading}
+              className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              下一步
+              上一步
             </button>
-          )}
 
-          {step === 2 && (
-            <button
-              onClick={handleFinalSubmit}
-              disabled={!canProceedStep2 || loading}
-              className="px-8 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-            >
-              {loading ? (
-                <>
-                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                      fill="none"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
-                  </svg>
-                  AI正在生成分析...
-                </>
-              ) : (
-                '生成分析和建议'
-              )}
-            </button>
-          )}
-        </div>
+            {step === 1 && (
+              <button
+                onClick={() => setStep(2)}
+                disabled={!canProceedStep1}
+                className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                下一步
+              </button>
+            )}
+
+            {step === 2 && (
+              <button
+                onClick={() => setStep(3)}
+                disabled={!canProceedStep2}
+                className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                开始对话分析
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
