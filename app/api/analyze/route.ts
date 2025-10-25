@@ -38,7 +38,7 @@ ${categories.map((c, i) => `${i + 1}. ${c}`).join('\n')}
 3. **行动建议** (suggestions): 提供5-7条具体的发展建议,每条建议包含:
    - title: 建议标题
    - description: 建议详细说明
-   - tasks: 2-3个可执行的具体任务(字符串数组)
+   - tasks: 2-3个参考要点(作为思考方向的参考任务)
 
 请以JSON格式返回,格式如下:
 {
@@ -48,7 +48,7 @@ ${categories.map((c, i) => `${i + 1}. ${c}`).join('\n')}
     {
       "title": "建议标题",
       "description": "建议说明",
-      "tasks": ["任务1", "任务2", "任务3"]
+      "tasks": ["参考任务1", "参考任务2", "参考任务3"]
     }
   ]
 }`;
@@ -74,7 +74,7 @@ ${categories.map((c, i) => `${i + 1}. ${c}`).join('\n')}
       throw new Error('AI响应格式不正确');
     }
 
-    // 为每个建议的任务生成ID
+    // 为每个建议生成ID和任务
     interface ParsedSuggestion {
       title: string;
       description: string;
@@ -87,11 +87,13 @@ ${categories.map((c, i) => `${i + 1}. ${c}`).join('\n')}
       id: `suggestion-${baseTimestamp}-${index}`,
       title: sug.title,
       description: sug.description,
+      referencePoints: sug.tasks || [], // 参考要点用于生成引导问题
       tasks: (sug.tasks || []).map((task: string, taskIndex: number) => ({
         id: `task-${baseTimestamp}-${index}-${taskIndex}`,
         content: task,
         completed: false,
       })),
+      userTasks: [], // 用户任务初始为空
     }));
 
     const response: AnalysisResponse = {

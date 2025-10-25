@@ -16,6 +16,7 @@ export default function TaskChecklist({ suggestions, onTaskToggle }: TaskCheckli
 
       <div className="space-y-6">
         {suggestions.map((suggestion, index) => {
+          // Growth 页面只显示 AI 任务,不显示用户在 Focus 添加的任务
           const completedCount = suggestion.tasks.filter(t => t.completed).length;
           const totalCount = suggestion.tasks.length;
           const progress = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;

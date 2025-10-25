@@ -16,6 +16,7 @@ export interface Task {
   id: string;
   content: string;
   completed: boolean;
+  isAIGenerated?: boolean;  // 标记是否为 AI 生成的参考任务
 }
 
 // 建议接口
@@ -23,7 +24,9 @@ export interface Suggestion {
   id: string;
   title: string;
   description: string;
-  tasks: Task[];
+  referencePoints: string[];  // 参考要点(用于生成引导问题)
+  tasks: Task[];               // AI 生成的参考任务(在 Growth 页面显示)
+  userTasks?: Task[];          // 用户在 Focus 页面自己添加的行动任务
 }
 
 // 单个才干解读
