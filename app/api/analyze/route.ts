@@ -59,12 +59,14 @@ export async function POST(request: NextRequest) {
       tasks: string[];
     }
 
+    // 使用唯一时间戳避免重复key
+    const baseTimestamp = Date.now();
     const suggestions: Suggestion[] = (parsedData.suggestions as ParsedSuggestion[]).map((sug, index) => ({
-      id: `suggestion-${Date.now()}-${index}`,
+      id: `suggestion-${baseTimestamp}-${index}`,
       title: sug.title,
       description: sug.description,
       tasks: (sug.tasks || []).map((task: string, taskIndex: number) => ({
-        id: `task-${Date.now()}-${index}-${taskIndex}`,
+        id: `task-${baseTimestamp}-${index}-${taskIndex}`,
         content: task,
         completed: false,
       })),
