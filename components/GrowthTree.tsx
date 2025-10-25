@@ -20,7 +20,7 @@ export default function GrowthTree({ progress }: GrowthTreeProps) {
   const stage = getTreeStage(progress);
 
   const stageInfo = {
-    seed: { name: '种子', emoji: '🌰', color: '#8B4513', description: '开始你的成长之旅' },
+    seed: { name: '种子', emoji: '🌾', color: '#8B4513', description: '开始你的成长之旅' },
     sprout: { name: '发芽', emoji: '🌱', color: '#90EE90', description: '新的开始正在萌芽' },
     seedling: { name: '幼苗', emoji: '🌿', color: '#3CB371', description: '稳步成长中' },
     tree: { name: '小树', emoji: '🌳', color: '#228B22', description: '茁壮成长' },
