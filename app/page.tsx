@@ -2,41 +2,73 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { GallupTalent, MBTIType, ScenarioType } from '@/types';
+import { GallupTalent, MBTIType, ScenarioType, Analysis } from '@/types';
 import TalentSelector from '@/components/TalentSelector';
 import MBTISelector from '@/components/MBTISelector';
 import ScenarioSelector from '@/components/ScenarioSelector';
+import InitialAnalysis from '@/components/InitialAnalysis';
 
 export default function Home() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [talents, setTalents] = useState<GallupTalent[]>([]);
   const [mbti, setMBTI] = useState<MBTIType | null>(null);
+  const [initialAnalysis, setInitialAnalysis] = useState<Analysis | null>(null);
   const [scenario, setScenario] = useState<ScenarioType | null>(null);
-  const [apiKey, setApiKey] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const canProceedStep1 = talents.length === 5;
   const canProceedStep2 = mbti !== null;
-  const canProceedStep3 = scenario !== null && apiKey.trim() !== '';
+  const canProceedStep3 = initialAnalysis !== null;
+  const canProceedStep4 = scenario !== null;
 
-  const handleSubmit = async () => {
-    if (!canProceedStep3 || !mbti || !scenario) return;
+  // 步骤2完成后：生成初步解读
+  const handleStep2Complete = async () => {
+    if (!mbti) return;
 
     setLoading(true);
     setError('');
 
     try {
-      const response = await fetch('/api/analyze', {
+      const response = await fetch('/api/initial-analysis', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ talents, mbti, scenario, apiKey }),
+        body: JSON.stringify({ talents, mbti }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || '分析失败');
+      }
+
+      const data = await response.json();
+      setInitialAnalysis(data.analysis);
+      setStep(3);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '未知错误');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 步骤4完成后：生成场景建议
+  const handleFinalSubmit = async () => {
+    if (!canProceedStep4 || !mbti || !scenario || !initialAnalysis) return;
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/scenario-suggestions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ talents, mbti, scenario, initialAnalysis }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || '生成建议失败');
       }
 
       const data = await response.json();
@@ -46,7 +78,7 @@ export default function Home() {
         id: `profile-${Date.now()}`,
         talents,
         mbti,
-        analysis: data.analysis,
+        analysis: initialAnalysis,
         scenario,
         suggestions: data.suggestions,
         progress: 0,
@@ -81,7 +113,7 @@ export default function Home() {
         {/* 进度指示器 */}
         <div className="flex items-center justify-center mb-12">
           <div className="flex items-center space-x-4">
-            {[1, 2, 3].map(s => (
+            {[1, 2, 3, 4].map(s => (
               <div key={s} className="flex items-center">
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
@@ -92,7 +124,7 @@ export default function Home() {
                 >
                   {s}
                 </div>
-                {s < 3 && (
+                {s < 4 && (
                   <div
                     className={`w-12 h-1 mx-2 ${
                       step > s ? 'bg-blue-600' : 'bg-gray-200'
@@ -120,44 +152,20 @@ export default function Home() {
             />
           )}
 
-          {step === 3 && (
-            <div className="space-y-8">
-              <ScenarioSelector
-                selectedScenario={scenario}
-                onSelect={setScenario}
-              />
+          {step === 3 && initialAnalysis && (
+            <InitialAnalysis analysis={initialAnalysis} />
+          )}
 
-              {/* API Key 输入 */}
-              <div className="space-y-3">
-                <label className="block text-sm font-semibold text-gray-900">
-                  OpenRouter API 密钥
-                </label>
-                <p className="text-sm text-gray-500">
-                  需要OpenRouter API密钥来调用AI模型。你可以在
-                  <a
-                    href="https://openrouter.ai/keys"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline mx-1"
-                  >
-                    OpenRouter官网
-                  </a>
-                  免费注册并获取密钥
-                </p>
-                <input
-                  type="password"
-                  value={apiKey}
-                  onChange={e => setApiKey(e.target.value)}
-                  placeholder="sk-or-..."
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                />
-              </div>
+          {step === 4 && (
+            <ScenarioSelector
+              selectedScenario={scenario}
+              onSelect={setScenario}
+            />
+          )}
 
-              {error && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-                  {error}
-                </div>
-              )}
+          {error && (
+            <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+              {error}
             </div>
           )}
         </div>
@@ -166,28 +174,27 @@ export default function Home() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => setStep(Math.max(1, step - 1))}
-            disabled={step === 1}
+            disabled={step === 1 || loading}
             className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             上一步
           </button>
 
-          {step < 3 ? (
+          {step === 1 && (
             <button
-              onClick={() => setStep(step + 1)}
-              disabled={
-                (step === 1 && !canProceedStep1) ||
-                (step === 2 && !canProceedStep2)
-              }
+              onClick={() => setStep(2)}
+              disabled={!canProceedStep1}
               className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               下一步
             </button>
-          ) : (
+          )}
+
+          {step === 2 && (
             <button
-              onClick={handleSubmit}
-              disabled={!canProceedStep3 || loading}
-              className="px-8 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              onClick={handleStep2Complete}
+              disabled={!canProceedStep2 || loading}
+              className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
             >
               {loading ? (
                 <>
@@ -210,7 +217,49 @@ export default function Home() {
                   AI正在分析中...
                 </>
               ) : (
-                '开始分析'
+                '生成解读'
+              )}
+            </button>
+          )}
+
+          {step === 3 && (
+            <button
+              onClick={() => setStep(4)}
+              disabled={!canProceedStep3}
+              className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              选择场景
+            </button>
+          )}
+
+          {step === 4 && (
+            <button
+              onClick={handleFinalSubmit}
+              disabled={!canProceedStep4 || loading}
+              className="px-8 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
+                  </svg>
+                  AI正在生成建议...
+                </>
+              ) : (
+                '生成行动建议'
               )}
             </button>
           )}
