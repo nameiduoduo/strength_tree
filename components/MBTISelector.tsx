@@ -16,6 +16,31 @@ export default function MBTISelector({ selectedMBTI, onSelect }: MBTISelectorPro
     { name: '探险家', types: ['ISTP', 'ISFP', 'ESTP', 'ESFP'] },
   ];
 
+  // MBTI类型颜色映射
+  const typeColors: Record<string, { bg: string; border: string; text: string; hover: string; lightBg: string; checkmark: string }> = {
+    'INTJ': { bg: 'bg-[#825F94]', border: 'border-[#825F94]', text: 'text-[#825F94]', hover: 'hover:border-[#9b7aab]', lightBg: 'bg-[#825F94]/10', checkmark: 'text-[#825F94]' },
+    'INTP': { bg: 'bg-[#825F94]', border: 'border-[#825F94]', text: 'text-[#825F94]', hover: 'hover:border-[#9b7aab]', lightBg: 'bg-[#825F94]/10', checkmark: 'text-[#825F94]' },
+    'ENTJ': { bg: 'bg-[#825F94]', border: 'border-[#825F94]', text: 'text-[#825F94]', hover: 'hover:border-[#9b7aab]', lightBg: 'bg-[#825F94]/10', checkmark: 'text-[#825F94]' },
+    'ENTP': { bg: 'bg-[#825F94]', border: 'border-[#825F94]', text: 'text-[#825F94]', hover: 'hover:border-[#9b7aab]', lightBg: 'bg-[#825F94]/10', checkmark: 'text-[#825F94]' },
+    'INFJ': { bg: 'bg-[#329D6E]', border: 'border-[#329D6E]', text: 'text-[#329D6E]', hover: 'hover:border-[#4db588]', lightBg: 'bg-[#329D6E]/10', checkmark: 'text-[#329D6E]' },
+    'INFP': { bg: 'bg-[#329D6E]', border: 'border-[#329D6E]', text: 'text-[#329D6E]', hover: 'hover:border-[#4db588]', lightBg: 'bg-[#329D6E]/10', checkmark: 'text-[#329D6E]' },
+    'ENFJ': { bg: 'bg-[#329D6E]', border: 'border-[#329D6E]', text: 'text-[#329D6E]', hover: 'hover:border-[#4db588]', lightBg: 'bg-[#329D6E]/10', checkmark: 'text-[#329D6E]' },
+    'ENFP': { bg: 'bg-[#329D6E]', border: 'border-[#329D6E]', text: 'text-[#329D6E]', hover: 'hover:border-[#4db588]', lightBg: 'bg-[#329D6E]/10', checkmark: 'text-[#329D6E]' },
+    'ISTJ': { bg: 'bg-[#3D91AB]', border: 'border-[#3D91AB]', text: 'text-[#3D91AB]', hover: 'hover:border-[#5fa9c0]', lightBg: 'bg-[#3D91AB]/10', checkmark: 'text-[#3D91AB]' },
+    'ISFJ': { bg: 'bg-[#3D91AB]', border: 'border-[#3D91AB]', text: 'text-[#3D91AB]', hover: 'hover:border-[#5fa9c0]', lightBg: 'bg-[#3D91AB]/10', checkmark: 'text-[#3D91AB]' },
+    'ESTJ': { bg: 'bg-[#3D91AB]', border: 'border-[#3D91AB]', text: 'text-[#3D91AB]', hover: 'hover:border-[#5fa9c0]', lightBg: 'bg-[#3D91AB]/10', checkmark: 'text-[#3D91AB]' },
+    'ESFJ': { bg: 'bg-[#3D91AB]', border: 'border-[#3D91AB]', text: 'text-[#3D91AB]', hover: 'hover:border-[#5fa9c0]', lightBg: 'bg-[#3D91AB]/10', checkmark: 'text-[#3D91AB]' },
+    'ISTP': { bg: 'bg-[#DCAA3A]', border: 'border-[#DCAA3A]', text: 'text-[#DCAA3A]', hover: 'hover:border-[#e4bc61]', lightBg: 'bg-[#DCAA3A]/10', checkmark: 'text-[#DCAA3A]' },
+    'ISFP': { bg: 'bg-[#DCAA3A]', border: 'border-[#DCAA3A]', text: 'text-[#DCAA3A]', hover: 'hover:border-[#e4bc61]', lightBg: 'bg-[#DCAA3A]/10', checkmark: 'text-[#DCAA3A]' },
+    'ESTP': { bg: 'bg-[#DCAA3A]', border: 'border-[#DCAA3A]', text: 'text-[#DCAA3A]', hover: 'hover:border-[#e4bc61]', lightBg: 'bg-[#DCAA3A]/10', checkmark: 'text-[#DCAA3A]' },
+    'ESFP': { bg: 'bg-[#DCAA3A]', border: 'border-[#DCAA3A]', text: 'text-[#DCAA3A]', hover: 'hover:border-[#e4bc61]', lightBg: 'bg-[#DCAA3A]/10', checkmark: 'text-[#DCAA3A]' },
+  };
+
+  // 获取MBTI类型颜色
+  const getTypeColor = (type: string) => {
+    return typeColors[type] || typeColors['INTJ']; // 默认使用紫色
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -45,6 +70,7 @@ export default function MBTISelector({ selectedMBTI, onSelect }: MBTISelectorPro
               if (!mbtiInfo) return null;
 
               const isSelected = selectedMBTI === type;
+              const colors = getTypeColor(type);
 
               return (
                 <button
@@ -52,8 +78,8 @@ export default function MBTISelector({ selectedMBTI, onSelect }: MBTISelectorPro
                   onClick={() => onSelect(type as MBTIType)}
                   className={`p-4 rounded-lg border-2 text-left transition-all ${
                     isSelected
-                      ? 'border-purple-600 bg-purple-50 shadow-lg'
-                      : 'border-gray-200 bg-white hover:border-purple-300 hover:shadow-md'
+                      ? `${colors.border} ${colors.lightBg} shadow-lg`
+                      : `border-gray-200 bg-white ${colors.hover} hover:shadow-md`
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
@@ -61,7 +87,7 @@ export default function MBTISelector({ selectedMBTI, onSelect }: MBTISelectorPro
                       {mbtiInfo.type}
                     </span>
                     {isSelected && (
-                      <span className="text-purple-600">✓</span>
+                      <span className={colors.checkmark}>✓</span>
                     )}
                   </div>
                   <div className="text-xs font-medium text-gray-700 mb-1">
@@ -88,13 +114,14 @@ export default function MBTISelector({ selectedMBTI, onSelect }: MBTISelectorPro
       ))}
 
       {selectedMBTI && (
-        <div className="mt-6 p-4 bg-purple-50 rounded-lg">
+        <div className={`mt-6 p-4 ${getTypeColor(selectedMBTI).lightBg} rounded-lg`}>
           <h3 className="text-sm font-semibold text-gray-900 mb-2">
             已选择:
           </h3>
           {(() => {
             const mbtiInfo = MBTI_TYPES.find(m => m.type === selectedMBTI);
             if (!mbtiInfo) return null;
+            const colors = getTypeColor(selectedMBTI);
 
             return (
               <div className="flex items-start gap-3">
@@ -109,7 +136,7 @@ export default function MBTISelector({ selectedMBTI, onSelect }: MBTISelectorPro
                     {mbtiInfo.traits.map(trait => (
                       <span
                         key={trait}
-                        className="text-xs px-2 py-1 bg-white text-gray-700 rounded-full border border-purple-200"
+                        className={`text-xs px-2 py-1 bg-white text-gray-700 rounded-full border ${colors.border}`}
                       >
                         {trait}
                       </span>

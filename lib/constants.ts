@@ -88,6 +88,6 @@ export const MBTI_TYPES: MBTIInfo[] = [
 // 场景类型
 export const SCENARIOS = [
   { value: '关系', label: '关系', icon: '💕', description: '改善人际关系、亲密关系、家庭关系' },
-  { value: '工作', label: '工作', icon: '💼', description: '提升职场表现、团队协作、职业发展' },
+  { value: '工作', label: '职业发展', icon: '💼', description: '提升职场表现、团队协作、职业发展' },
   { value: '副业', label: '副业', icon: '🚀', description: '开启新项目、发展兴趣、创造收入' },
 ] as const;

@@ -12,10 +12,10 @@ export default function ScenarioSelector({ selectedScenario, onSelect }: Scenari
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-bold text-gray-900">
-        你最关注哪个方面?
+       今天你想先从哪里开始发展你的优势？
       </h2>
       <p className="text-sm text-gray-500">
-        AI将根据你选择的场景,提供针对性的成长建议
+        AI将根据你选择的场景，提供针对性的成长建议
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
