@@ -86,6 +86,7 @@ ${goal}
 建议格式:
 - title: 建议标题(8-15字)
 - description: 建议说明(80-120字)
+- referencePoints: 参考要点数组(3-5个要点,每个10-20字,用于生成引导问题)
 - tasks: 具体任务数组(每个任务20-40字)
 
 请以JSON格式返回:
@@ -96,6 +97,7 @@ ${goal}
     {
       "title": "建议标题",
       "description": "建议说明",
+      "referencePoints": ["要点1", "要点2", "要点3"],
       "tasks": ["任务1", "任务2", "任务3"]
     }
   ]
@@ -116,6 +118,7 @@ ${goal}
     interface ParsedSuggestion {
       title: string;
       description: string;
+      referencePoints: string[];
       tasks: string[];
     }
 
@@ -125,6 +128,7 @@ ${goal}
       id: `suggestion-${baseTimestamp}-${index}`,
       title: sug.title,
       description: sug.description,
+      referencePoints: sug.referencePoints || [],
       tasks: (sug.tasks || []).map((task: string, taskIndex: number) => ({
         id: `task-${baseTimestamp}-${index}-${taskIndex}`,
         content: task,
