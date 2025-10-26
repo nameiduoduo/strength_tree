@@ -24,11 +24,11 @@ export default function WelcomeTree() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 relative overflow-hidden">
       {/* 主要内容区 */}
-      <div className="min-h-screen flex items-center justify-center px-8">
-        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="min-h-screen flex items-center justify-center px-8 py-20">
+        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 
           {/* 左侧文字内容 */}
-          <div className="space-y-8">
+          <div className="space-y-8 lg:col-span-5">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -36,7 +36,7 @@ export default function WelcomeTree() {
               className="inline-flex items-center gap-2 text-emerald-600 text-sm font-medium"
             >
               <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
-              Flow Within · 自然成长系统
+              Don’t rush. Just grow.
             </motion.div>
 
             <motion.h1
@@ -78,9 +78,9 @@ export default function WelcomeTree() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex items-center justify-center"
+            className="flex items-center justify-center lg:col-span-7"
           >
-            <div className="w-full max-w-md">
+            <div className="w-[70%] max-w-lg aspect-square">
               {animationData ? (
                 <Lottie
                   animationData={animationData}

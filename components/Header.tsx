@@ -32,9 +32,9 @@ export default function Header() {
           transition={{ duration: 0.6 }}
           className="flex items-center gap-6 text-gray-600"
         >
-          <button className="hover:text-emerald-600 transition-colors">关于</button>
-          <button className="hover:text-emerald-600 transition-colors">成长旅程</button>
-          <button className="px-4 py-2 hover:text-emerald-600 transition-colors">登录</button>
+          <button className="hover:text-emerald-600 transition-colors">登录</button>
+          <button className="px-4 py-2 hover:text-emerald-600 transition-colors">注册</button>
+          <button className="hover:text-emerald-600 transition-colors">优势案例</button>
         </motion.div>
       </div>
     </nav>
