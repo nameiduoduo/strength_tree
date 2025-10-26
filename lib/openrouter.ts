@@ -65,7 +65,6 @@ export async function callOpenRouter(
         console.log(`\n========== API 调用尝试 ${attempt}/${maxRetries} ==========`);
         console.log('请求配置:');
         console.log('- 当前模型:', currentModel);
-        console.log('- API Key:', apiKey ? `${apiKey.substring(0, 15)}...` : '未提供');
         console.log('- 代理:', PROXY_URL || '无');
         console.log('- 提示词长度:', prompt.length, '字符');
 
