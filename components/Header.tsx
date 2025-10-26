@@ -44,7 +44,7 @@ export default function Header() {
               className="object-cover"
             />
           </div>
-          <span className="text-xl font-medium bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-500 bg-clip-text text-transparent tracking-wider">顺流而生</span>
+          <span className="text-xl font-medium bg-gradient-to-r from-[#12A16B] via-emerald-600 to-emerald-500 bg-clip-text text-transparent tracking-wider">顺流而生</span>
         </motion.div>
 
         <motion.div
@@ -53,11 +53,11 @@ export default function Header() {
           transition={{ duration: 0.6 }}
           className="flex items-center gap-6 text-gray-600"
         >
-          <button className="hover:text-emerald-600 transition-colors">登录</button>
-          <button className="px-4 py-2 hover:text-emerald-600 transition-colors">注册</button>
+          <button className="font-semibold hover:text-emerald-600 transition-colors">登录</button>
+          <button className="px-4 py-2 font-semibold hover:text-emerald-600 transition-colors">注册</button>
           <button
             onClick={handleSuccessStoriesClick}
-            className="hover:text-emerald-600 transition-colors"
+            className="font-semibold hover:text-emerald-600 transition-colors"
           >
             优势案例
           </button>
