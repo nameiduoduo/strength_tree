@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "盖洛普优势测评 + MBTI性格分析 | AI个性化成长建议",
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className="bg-gray-50 antialiased">
+        <Header />
         {children}
       </body>
     </html>
