@@ -96,17 +96,19 @@ export default function Home() {
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
                     step >= s
-                      ? 'bg-green-600 text-white'
+                      ? 'text-white'
                       : 'bg-gray-200 text-gray-500'
                   }`}
+                  style={step >= s ? { backgroundColor: '#02BD7D' } : undefined}
                 >
                   {s}
                 </div>
                 {s < 4 && (
                   <div
                     className={`w-12 h-1 mx-2 ${
-                      step > s ? 'bg-green-600' : 'bg-gray-200'
+                      step > s ? '' : 'bg-gray-200'
                     }`}
+                    style={step > s ? { backgroundColor: '#02BD7D' } : undefined}
                   />
                 )}
               </div>
