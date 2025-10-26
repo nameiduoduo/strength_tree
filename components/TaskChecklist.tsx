@@ -5,10 +5,9 @@ import { Suggestion } from '@/types';
 
 interface TaskChecklistProps {
   suggestions: Suggestion[];
-  onTaskToggle: (suggestionId: string, taskId: string) => void;
 }
 
-export default function TaskChecklist({ suggestions, onTaskToggle }: TaskChecklistProps) {
+export default function TaskChecklist({ suggestions }: TaskChecklistProps) {
   const router = useRouter();
   return (
     <div className="space-y-6">

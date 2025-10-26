@@ -24,27 +24,6 @@ export default function GrowthPage() {
     setLoading(false);
   }, [router]);
 
-  const handleTaskToggle = (suggestionId: string, taskId: string) => {
-    if (!profile) return;
-
-    const updatedProfile = { ...profile };
-    const suggestion = updatedProfile.suggestions.find(s => s.id === suggestionId);
-    if (!suggestion) return;
-
-    const task = suggestion.tasks.find(t => t.id === taskId);
-    if (!task) return;
-
-    // 切换任务状态
-    task.completed = !task.completed;
-
-    // 重新计算进度
-    updatedProfile.progress = calculateProgress(updatedProfile);
-    updatedProfile.updatedAt = new Date().toISOString();
-
-    // 保存并更新状态
-    saveProfile(updatedProfile);
-    setProfile(updatedProfile);
-  };
 
   const handleReset = () => {
     if (confirm('确定要重新开始吗?这将清除当前所有数据。')) {
@@ -159,7 +138,6 @@ export default function GrowthPage() {
         <div>
           <TaskChecklist
             suggestions={profile.suggestions}
-            onTaskToggle={handleTaskToggle}
           />
         </div>
       </div>
