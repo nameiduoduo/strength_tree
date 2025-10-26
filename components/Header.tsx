@@ -1,13 +1,27 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 export default function Header() {
   const router = useRouter()
+  const pathname = usePathname()
 
   const handleLogoClick = () => {
     router.push('/')
+  }
+
+  const handleSuccessStoriesClick = () => {
+    // 如果在首页,直接滚动到优势案例区域
+    if (pathname === '/') {
+      const element = document.getElementById('success-stories')
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      // 如果不在首页,先跳转到首页,然后滚动
+      router.push('/#success-stories')
+    }
   }
 
   return (
@@ -34,7 +48,12 @@ export default function Header() {
         >
           <button className="hover:text-emerald-600 transition-colors">登录</button>
           <button className="px-4 py-2 hover:text-emerald-600 transition-colors">注册</button>
-          <button className="hover:text-emerald-600 transition-colors">优势案例</button>
+          <button
+            onClick={handleSuccessStoriesClick}
+            className="hover:text-emerald-600 transition-colors"
+          >
+            优势案例
+          </button>
         </motion.div>
       </div>
     </nav>
