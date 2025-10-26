@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useRouter, usePathname } from 'next/navigation'
+import Image from 'next/image'
 
 export default function Header() {
   const router = useRouter()
@@ -34,8 +35,14 @@ export default function Header() {
           className="flex items-center gap-3 cursor-pointer"
           onClick={handleLogoClick}
         >
-          <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold">
-            🌳
+          <div className="w-10 h-10 rounded-full overflow-hidden">
+            <Image
+              src="/logo.jpg"
+              alt="顺流而生 Logo"
+              width={40}
+              height={40}
+              className="object-cover"
+            />
           </div>
           <span className="text-lg font-medium text-gray-800">顺流而生</span>
         </motion.div>

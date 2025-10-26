@@ -3,6 +3,7 @@
 import WelcomeTree from '@/components/WelcomeTree'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 export default function Home() {
   const router = useRouter()
@@ -435,7 +436,15 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-3xl">🌳</span>
+                <div className="w-12 h-12 rounded-full overflow-hidden">
+                  <Image
+                    src="/logo.jpg"
+                    alt="顺流而生 Logo"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
+                </div>
                 <span className="text-xl font-bold text-white">顺流而生</span>
               </div>
               <p className="text-sm leading-relaxed mb-4">
