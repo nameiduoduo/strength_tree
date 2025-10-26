@@ -22,7 +22,7 @@ export default function WelcomeTree() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#DCF0EA' }}>
       {/* 主要内容区 */}
       <div className="min-h-screen flex items-center justify-center px-8 py-20">
         <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

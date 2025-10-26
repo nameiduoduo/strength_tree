@@ -148,7 +148,7 @@ export default function Home() {
       <WelcomeTree />
 
       {/* Features Section */}
-      <section className="py-20 px-8 bg-white">
+      <section className="py-20 px-8" style={{ backgroundColor: '#DCF0EA' }}>
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -256,7 +256,7 @@ export default function Home() {
       </section>
 
       {/* Success Stories Section */}
-      <section id="success-stories" className="py-20 px-8 bg-gradient-to-br from-gray-50 to-white scroll-mt-16">
+      <section id="success-stories" className="py-20 px-8 scroll-mt-16" style={{ backgroundColor: '#DCF0EA' }}>
         <div className="max-w-7xl mx-auto">
           {/* 标题区 */}
           <motion.div
@@ -346,7 +346,7 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 px-8 bg-white">
+      <section className="py-20 px-8" style={{ backgroundColor: '#DCF0EA' }}>
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

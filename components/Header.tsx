@@ -25,7 +25,7 @@ export default function Header() {
   }
 
   return (
-    <nav className="bg-white/80 backdrop-blur-sm border-b border-gray-100 px-4 py-2">
+    <nav className="backdrop-blur-sm border-b px-4 py-2" style={{ backgroundColor: 'rgba(220, 240, 234, 0.8)', borderBottomColor: 'rgba(16, 185, 129, 0.15)' }}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <motion.div
           initial={{ opacity: 0, x: -20 }}

@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body className="bg-gray-50 antialiased">
+      <body className="antialiased" style={{ backgroundColor: '#DCF0EA' }}>
         <Header />
         {children}
       </body>
