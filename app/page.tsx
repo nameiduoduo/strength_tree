@@ -1,9 +1,10 @@
 'use client'
 
 import WelcomeTree from '@/components/WelcomeTree'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import React from 'react'
 
 export default function Home() {
   const router = useRouter()
@@ -54,8 +55,54 @@ export default function Home() {
       quote: '跟着天性走,副业不再是硬扛,而是享受过程。',
       color: 'from-orange-50 to-orange-100',
       accentColor: 'text-orange-600'
+    },
+    {
+      id: 4,
+      emoji: '🎨',
+      title: '创意工作倦怠者',
+      painPoint: '做设计5年,越来越没灵感,怀疑自己是不是不适合这行',
+      changes: [
+        '才干显示"完美"+"理念"排名靠前,但"适应"很低',
+        'AI建议:从快节奏执行转向创意策划和品牌方向',
+        '现在做品牌顾问,每个项目都能深度投入创作'
+      ],
+      quote: '不是我没灵感,是我需要更多时间去打磨作品。',
+      color: 'from-purple-50 to-purple-100',
+      accentColor: 'text-purple-600'
+    },
+    {
+      id: 5,
+      emoji: '📚',
+      title: '职业转型焦虑者',
+      painPoint: '30岁想转行,但不知道自己除了现在的工作还能做什么',
+      changes: [
+        '才干组合:"统筹"+"责任"+"纪律"排名前列',
+        'AI分析:适合项目管理、运营类岗位',
+        '成功转型为项目经理,收入和成就感双提升'
+      ],
+      quote: '年龄不是限制,找对方向才是关键。',
+      color: 'from-teal-50 to-teal-100',
+      accentColor: 'text-teal-600'
+    },
+    {
+      id: 6,
+      emoji: '🌟',
+      title: '自我认知模糊者',
+      painPoint: '一直在模仿别人的成功路径,但总感觉不对劲',
+      changes: [
+        '才干测试显示独特的"伯乐"+"个别"组合',
+        'AI建议:发挥识人长处,往HR、教练方向发展',
+        '开始做职业咨询,帮助他人的同时找到自我价值'
+      ],
+      quote: '停止模仿,做自己,反而走得更顺。',
+      color: 'from-yellow-50 to-yellow-100',
+      accentColor: 'text-yellow-600'
     }
   ]
+
+  // 将案例分成两组
+  const firstRowStories = successStories.slice(0, 3)
+  const secondRowStories = successStories.slice(3, 6)
 
   const features = [
     {
@@ -275,49 +322,119 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* 案例卡片网格 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {successStories.map((story, index) => (
+          {/* 双向滚动轮播 */}
+          <div className="space-y-6">
+            {/* 第一排 - 向左滚动 */}
+            <div className="overflow-hidden">
               <motion.div
-                key={story.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`bg-gradient-to-br ${story.color} rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow`}
+                className="flex gap-6"
+                animate={{
+                  x: [0, -1200]
+                }}
+                transition={{
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
               >
-                {/* 头部 */}
-                <div className="mb-6">
-                  <div className="text-5xl mb-4">{story.emoji}</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                    {story.title}
-                  </h3>
-                  <p className="text-gray-700 font-medium">
-                    {story.painPoint}
-                  </p>
-                </div>
+                {/* 复制两遍实现无缝循环 */}
+                {[...firstRowStories, ...firstRowStories].map((story, index) => (
+                  <div
+                    key={`row1-${index}`}
+                    className="min-w-[350px] md:min-w-[400px]"
+                  >
+                    <div className={`bg-gradient-to-br ${story.color} rounded-2xl p-6 md:p-8 shadow-xl h-full flex flex-col justify-between`}>
+                      {/* 头部 */}
+                      <div className="mb-4">
+                        <div className="text-4xl mb-3">{story.emoji}</div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                          {story.title}
+                        </h3>
+                        <p className="text-gray-700 text-sm font-medium">
+                          {story.painPoint}
+                        </p>
+                      </div>
 
-                {/* 改变要点 */}
-                <div className="mb-6 space-y-3">
-                  {story.changes.map((change, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <span className="text-emerald-500 font-bold text-lg mt-0.5">✓</span>
-                      <p className="text-gray-700 text-sm leading-relaxed">{change}</p>
+                      {/* 改变要点 */}
+                      <div className="mb-4 space-y-2">
+                        {story.changes.map((change, i) => (
+                          <div key={i} className="flex items-start gap-2">
+                            <span className="text-emerald-500 font-bold text-base mt-0.5">✓</span>
+                            <p className="text-gray-700 text-xs leading-relaxed">{change}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* 用户引用 */}
+                      <div className="pt-4 border-t border-gray-300">
+                        <div className="flex items-start gap-2">
+                          <span className={`${story.accentColor} text-xl`}>"</span>
+                          <p className={`${story.accentColor} font-semibold italic text-xs`}>
+                            {story.quote}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  ))}
-                </div>
-
-                {/* 用户引用 */}
-                <div className="pt-6 border-t border-gray-300">
-                  <div className="flex items-start gap-2">
-                    <span className={`${story.accentColor} text-2xl`}>"</span>
-                    <p className={`${story.accentColor} font-semibold italic text-sm`}>
-                      {story.quote}
-                    </p>
                   </div>
-                </div>
+                ))}
               </motion.div>
-            ))}
+            </div>
+
+            {/* 第二排 - 向右滚动 */}
+            <div className="overflow-hidden">
+              <motion.div
+                className="flex gap-6"
+                animate={{
+                  x: [-1200, 0]
+                }}
+                transition={{
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              >
+                {/* 复制两遍实现无缝循环 */}
+                {[...secondRowStories, ...secondRowStories].map((story, index) => (
+                  <div
+                    key={`row2-${index}`}
+                    className="min-w-[350px] md:min-w-[400px]"
+                  >
+                    <div className={`bg-gradient-to-br ${story.color} rounded-2xl p-6 md:p-8 shadow-xl h-full flex flex-col justify-between`}>
+                      {/* 头部 */}
+                      <div className="mb-4">
+                        <div className="text-4xl mb-3">{story.emoji}</div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                          {story.title}
+                        </h3>
+                        <p className="text-gray-700 text-sm font-medium">
+                          {story.painPoint}
+                        </p>
+                      </div>
+
+                      {/* 改变要点 */}
+                      <div className="mb-4 space-y-2">
+                        {story.changes.map((change, i) => (
+                          <div key={i} className="flex items-start gap-2">
+                            <span className="text-emerald-500 font-bold text-base mt-0.5">✓</span>
+                            <p className="text-gray-700 text-xs leading-relaxed">{change}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* 用户引用 */}
+                      <div className="pt-4 border-t border-gray-300">
+                        <div className="flex items-start gap-2">
+                          <span className={`${story.accentColor} text-xl`}>"</span>
+                          <p className={`${story.accentColor} font-semibold italic text-xs`}>
+                            {story.quote}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
           </div>
 
           {/* 数据统计 */}
