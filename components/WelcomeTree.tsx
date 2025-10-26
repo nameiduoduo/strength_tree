@@ -1,138 +1,159 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import Lottie, { LottieRefCurrentProps } from 'lottie-react'
-import treeAnimation from '../public/animations/tree-elegant.json'
+import SimpleTree from './SimpleTree'
 
 export default function WelcomeTree() {
   const router = useRouter()
-  const [showPrompt, setShowPrompt] = useState(false)
-  const lottieRef = useRef<LottieRefCurrentProps>(null)
 
-  useEffect(() => {
-    // 动画播放完成后显示提示文字
-    const timer = setTimeout(() => {
-      setShowPrompt(true)
-    }, 300) // 0.3秒后显示提示
-
-    return () => clearTimeout(timer)
-  }, [])
-
-  const handleClick = () => {
+  const handleStart = () => {
     router.push('/start')
   }
 
   return (
-    <div
-      className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col items-center justify-center overflow-hidden relative cursor-pointer"
-      onClick={handleClick}
-    >
-      {/* 背景装饰光晕 */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-green-500 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay: 1,
-          }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-3xl"
-        />
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 relative overflow-hidden">
+      {/* 顶部导航 */}
+      <nav className="absolute top-0 left-0 right-0 z-50 px-8 py-6">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-3"
+          >
+            <div className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold">
+              流
+            </div>
+            <span className="text-lg font-medium text-gray-800">顺流而生</span>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-6 text-gray-600"
+          >
+            <button className="hover:text-emerald-600 transition-colors">关于</button>
+            <button className="hover:text-emerald-600 transition-colors">成长旅程</button>
+            <button className="px-4 py-2 hover:text-emerald-600 transition-colors">登录</button>
+          </motion.div>
+        </div>
+      </nav>
+
+      {/* 主要内容区 */}
+      <div className="min-h-screen flex items-center justify-center px-8">
+        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+          {/* 左侧文字内容 */}
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center gap-2 text-emerald-600 text-sm font-medium"
+            >
+              <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
+              Flow Within · 自然成长系统
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight"
+            >
+              不追赶，只生长。
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-xl text-gray-600 leading-relaxed"
+            >
+              让优势顺着天性流动。
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex flex-wrap gap-4 pt-4"
+            >
+              <button
+                onClick={handleStart}
+                className="px-8 py-4 bg-emerald-500 text-white rounded-full font-medium hover:bg-emerald-600 transition-all hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
+              >
+                开始种下你的第一颗种子 🌱
+              </button>
+
+              <button
+                className="px-8 py-4 bg-white text-gray-700 rounded-full font-medium hover:bg-gray-50 transition-all border border-gray-200 flex items-center gap-2"
+              >
+                先看看怎么生长 →
+              </button>
+            </motion.div>
+          </div>
+
+          {/* 右侧树图案 */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex items-center justify-center"
+          >
+            <div className="w-full max-w-md">
+              <SimpleTree />
+            </div>
+          </motion.div>
+
+        </div>
       </div>
 
-      {/* 标题 */}
-      <motion.div
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: 0 }}
-        className="absolute top-16 md:top-20 text-center z-10 px-4"
-      >
-        <h1 className="text-4xl md:text-6xl font-bold text-white/90 tracking-tight mb-4">
-          优势成长树
-        </h1>
-        <p className="text-white/60 text-base md:text-xl">
-          发现你的独特才干,培育你的成长之路
-        </p>
-      </motion.div>
-
-      {/* Lottie 树生长动画 */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
-        className="w-full max-w-md md:max-w-lg lg:max-w-xl relative z-10"
-      >
-        <Lottie
-          lottieRef={lottieRef}
-          animationData={treeAnimation}
-          loop={true}
-          autoplay={true}
-          style={{ width: '100%', height: 'auto' }}
-        />
-      </motion.div>
-
-      {/* 提示文字 */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: showPrompt ? 1 : 0, y: showPrompt ? 0 : 20 }}
-        transition={{ duration: 0.3 }}
-        className="absolute bottom-16 md:bottom-20 text-center z-10 px-4"
-      >
-        <motion.p
-          animate={{
-            opacity: [0.6, 1, 0.6],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className="text-white/80 text-base md:text-lg font-light tracking-wider"
-        >
-          点击任意位置,开始你的成长之旅 ✨
-        </motion.p>
-      </motion.div>
-
-      {/* 装饰元素 - 漂浮的小星星 */}
-      {[...Array(6)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-white/40 rounded-full"
-          style={{
-            left: `${20 + i * 12}%`,
-            top: `${30 + (i % 3) * 15}%`,
-          }}
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0.2, 0.6, 0.2],
-            scale: [1, 1.5, 1],
-          }}
-          transition={{
-            duration: 3 + i * 0.5,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay: i * 0.3,
-          }}
-        />
-      ))}
+      {/* 装饰性背景元素 */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[
+          { left: 10, top: 20, duration: 4, delay: 0 },
+          { left: 25, top: 15, duration: 3.5, delay: 0.5 },
+          { left: 45, top: 30, duration: 4.5, delay: 1 },
+          { left: 60, top: 10, duration: 3.8, delay: 0.3 },
+          { left: 75, top: 25, duration: 4.2, delay: 0.8 },
+          { left: 15, top: 60, duration: 3.6, delay: 1.2 },
+          { left: 35, top: 70, duration: 4.3, delay: 0.6 },
+          { left: 55, top: 55, duration: 3.9, delay: 1.5 },
+          { left: 70, top: 65, duration: 4.1, delay: 0.4 },
+          { left: 85, top: 75, duration: 3.7, delay: 1.8 },
+          { left: 20, top: 85, duration: 4.4, delay: 0.7 },
+          { left: 50, top: 90, duration: 3.3, delay: 1.1 },
+          { left: 80, top: 40, duration: 4.6, delay: 0.9 },
+          { left: 30, top: 50, duration: 3.4, delay: 1.4 },
+          { left: 65, top: 80, duration: 4.7, delay: 0.2 },
+          { left: 40, top: 45, duration: 3.2, delay: 1.6 },
+          { left: 90, top: 35, duration: 4.8, delay: 0.1 },
+          { left: 5, top: 55, duration: 3.1, delay: 1.7 },
+          { left: 95, top: 15, duration: 4.9, delay: 0.5 },
+          { left: 50, top: 5, duration: 5, delay: 1.3 },
+        ].map((dot, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-emerald-300 rounded-full opacity-20"
+            style={{
+              left: `${dot.left}%`,
+              top: `${dot.top}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: dot.duration,
+              repeat: Infinity,
+              delay: dot.delay,
+            }}
+          />
+        ))}
+      </div>
     </div>
   )
 }
