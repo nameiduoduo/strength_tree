@@ -2,8 +2,15 @@
 
 import WelcomeTree from '@/components/WelcomeTree'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+  const router = useRouter()
+
+  const handleStartClick = () => {
+    router.push('/start')
+  }
+
   const successStories = [
     {
       id: 1,
@@ -49,10 +56,204 @@ export default function Home() {
     }
   ]
 
+  const features = [
+    {
+      icon: '🎯',
+      title: '精准定位天赋',
+      description: '基于盖洛普34项才干理论,科学识别你的独特优势组合'
+    },
+    {
+      icon: '🤖',
+      title: 'AI 深度解读',
+      description: '结合你的才干排序和真实经历,生成个性化成长建议'
+    },
+    {
+      icon: '📊',
+      title: '可视化进度',
+      description: '通过成长树动画,见证每一步的改变和进步'
+    },
+    {
+      icon: '💡',
+      title: '场景化建议',
+      description: '针对职场、人际、副业等具体场景,提供可执行的行动计划'
+    },
+    {
+      icon: '🔄',
+      title: '持续迭代优化',
+      description: '随着你的成长,不断调整和优化成长路径'
+    },
+    {
+      icon: '🔒',
+      title: '数据隐私保护',
+      description: '所有数据本地存储,完全掌控你的个人信息'
+    }
+  ]
+
+  const howItWorks = [
+    {
+      step: '01',
+      title: '发现你的才干',
+      description: '选择34项盖洛普才干的排序,找出你的优势组合',
+      icon: '🌱'
+    },
+    {
+      step: '02',
+      title: '确定优先维度',
+      description: '从执行力、影响力、关系建立、战略思维中选择优先级',
+      icon: '🎯'
+    },
+    {
+      step: '03',
+      title: 'AI 对话分析',
+      description: '分享你的真实经历,AI 深入理解你的才干应用场景',
+      icon: '💬'
+    },
+    {
+      step: '04',
+      title: '获得成长建议',
+      description: '收到个性化的行动计划,开始你的成长之旅',
+      icon: '🚀'
+    }
+  ]
+
+  const faqs = [
+    {
+      question: '这个工具适合谁使用?',
+      answer: '适合所有希望更了解自己、发挥天赋优势的人。特别是职场新人、转型者、创业者,以及希望改善人际关系的朋友。',
+      hasLink: false
+    },
+    {
+      question: '需要提前做盖洛普测评吗?',
+      answer: '是的,需要先完成盖洛普34项优势测评。我们的系统会让你选择自己的34项才干排序,这需要基于你的盖洛普测评报告。如果你还没有做过测评，请先阅读这篇测评指南：',
+      linkText: '盖洛普测评&解读流程及注意事项详解',
+      linkUrl: 'https://mp.weixin.qq.com/s/yyZ-WKi1JS-koi9yVy32NQ',
+      afterLinkText: '，了解测评流程和注意事项后再进行测评。',
+      hasLink: true
+    },
+    {
+      question: '数据安全吗?',
+      answer: '完全安全。所有数据都存储在你的浏览器本地(LocalStorage),我们不会收集或上传任何个人信息。',
+      hasLink: false
+    },
+    {
+      question: 'AI 分析需要付费吗?',
+      answer: '完全免费!我们使用高质量的付费 AI 模型为你提供深度分析,但这部分费用由我们承担,你无需支付任何费用即可享受专业的 AI 成长建议。',
+      hasLink: false
+    }
+  ]
+
   return (
     <div className="min-h-screen">
       {/* Hero Section - WelcomeTree */}
       <WelcomeTree />
+
+      {/* Features Section */}
+      <section className="py-20 px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              为什么选择顺流而生?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              结合盖洛普优势理论与 AI 技术,为你打造专属成长路径
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 hover:shadow-lg transition-shadow"
+              >
+                <div className="text-5xl mb-4">{feature.icon}</div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-20 px-8 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              如何开始你的成长之旅?
+            </h2>
+            <p className="text-xl text-gray-600">
+              只需 4 步,开启个性化成长路径
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {howItWorks.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative"
+              >
+                <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-2">
+                  <div className="text-6xl font-bold text-emerald-100 mb-4">
+                    {item.step}
+                  </div>
+                  <div className="text-5xl mb-4">{item.icon}</div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+                {index < howItWorks.length - 1 && (
+                  <div className="hidden lg:block absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2">
+                    <div className="text-emerald-300 text-3xl">→</div>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mt-16"
+          >
+            <button
+              onClick={handleStartClick}
+              className="px-12 py-5 bg-emerald-500 text-white text-lg rounded-full font-bold hover:bg-emerald-600 transition-all hover:scale-105 shadow-xl hover:shadow-2xl"
+            >
+              立即开始成长之旅 🌱
+            </button>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Success Stories Section */}
       <section id="success-stories" className="py-20 px-8 bg-gradient-to-br from-gray-50 to-white scroll-mt-16">
@@ -143,6 +344,128 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 px-8 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              常见问题
+            </h2>
+            <p className="text-xl text-gray-600">
+              关于顺流而生,你可能想了解的
+            </p>
+          </motion.div>
+
+          <div className="space-y-6">
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 hover:shadow-lg transition-shadow"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {faq.question}
+                </h3>
+                <div className="text-gray-700 leading-relaxed">
+                  {faq.hasLink ? (
+                    <p>
+                      {faq.answer}
+                      <a
+                        href={faq.linkUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-emerald-600 font-semibold hover:text-emerald-700 underline"
+                      >
+                        {faq.linkText}
+                      </a>
+                      {faq.afterLinkText}
+                    </p>
+                  ) : (
+                    <p>{faq.answer}</p>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-24 px-8 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+              准备好发现真实的自己了吗?
+            </h2>
+            <p className="text-xl text-emerald-50 mb-10 leading-relaxed">
+              不追赶别人的节奏，只顺着自己的天性生长<br/>
+              让优势自然流动，看见属于你的成长路径
+            </p>
+            <button
+              onClick={handleStartClick}
+              className="px-12 py-5 bg-white text-emerald-600 text-lg rounded-full font-bold hover:bg-emerald-50 transition-all hover:scale-105 shadow-2xl"
+            >
+              开始你的成长之旅 🌱
+            </button>
+            <p className="text-emerald-100 mt-6 text-sm">
+              完全免费 · 无需注册 · 数据本地存储
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-400 py-12 px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div className="col-span-1 md:col-span-2">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-3xl">🌳</span>
+                <span className="text-xl font-bold text-white">顺流而生</span>
+              </div>
+              <p className="text-sm leading-relaxed mb-4">
+                基于盖洛普优势理论与 AI 技术,<br/>
+                帮助你发现天赋,顺应天性,自然成长。
+              </p>
+            </div>
+
+            <div>
+              <h4 className="text-white font-bold mb-4">产品</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">功能介绍</a></li>
+                <li><a href="#success-stories" className="hover:text-emerald-400 transition-colors">优势案例</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-white font-bold mb-4">资源</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">使用指南</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">隐私政策</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-800 pt-8 text-center text-sm">
+            <p>© 2025 顺流而生. 用 ❤️ 和 AI 构建</p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
