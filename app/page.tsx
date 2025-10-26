@@ -18,85 +18,73 @@ export default function Home() {
       id: 1,
       emoji: '💼',
       title: '职场晋升困惑者',
-      painPoint: '工作3年,感觉陷入瓶颈,不知道该往哪个方向发展',
+      painPoint: '工作3年，感觉陷入瓶颈，不知道该往哪个方向发展',
       changes: [
-        '通过34项才干排序,发现"战略"和"思维"才干排名前5',
+        '通过34项才干排序，发现"战略"和"思维"才干排名前5',
         'AI分析建议往产品规划、业务分析方向发展',
-        '3个月后成功转岗为产品经理,发挥天然优势'
+        '3个月后成功转岗为产品经理，发挥天然优势'
       ],
-      quote: '终于明白为什么我做执行总觉得累,原来我天生适合做规划!',
-      color: 'from-blue-50 to-blue-100',
-      accentColor: 'text-blue-600'
+      quote: '终于明白为什么我做执行总觉得累，原来我天生适合做规划！'
     },
     {
       id: 2,
       emoji: '💕',
       title: '人际关系敏感者',
-      painPoint: '总觉得自己情商低,在人际关系中很吃力',
+      painPoint: '总觉得自己情商低，在人际关系中很吃力',
       changes: [
-        '才干测试显示"个别"和"体谅"排前3,但"和谐"排25位',
-        'AI解读:擅长1对1深度交流,不适合大型社交场合',
-        '调整社交策略:减少无效聚会,专注维护深度关系'
+        '才干测试显示"个别"和"体谅"排前3，但"和谐"排25位',
+        'AI解读：擅长1对1深度交流，不适合大型社交场合',
+        '调整社交策略：减少无效聚会，专注维护深度关系'
       ],
-      quote: '原来不是我不会社交,只是用错了方式。现在轻松多了。',
-      color: 'from-pink-50 to-pink-100',
-      accentColor: 'text-pink-600'
+      quote: '原来不是我不会社交，只是用错了方式，现在轻松多了。'
     },
     {
       id: 3,
       emoji: '🚀',
       title: '副业探索迷茫者',
-      painPoint: '想做副业赚钱,但不知道做什么,试了好几个都失败',
+      painPoint: '想做副业赚钱，但不知道做什么，试了好几个都失败',
       changes: [
-        '才干组合显示:"搜集"+"学习"+"沟通"排名靠前',
-        'AI建议:做知识付费内容创作,整理学习笔记并分享',
-        '2个月启动知识星球,月收入突破5000元'
+        '才干组合显示："搜集"+"学习"+"沟通"排名靠前',
+        'AI建议：做知识付费内容创作，整理学习笔记并分享',
+        '2个月启动知识星球，月收入突破5000元'
       ],
-      quote: '跟着天性走,副业不再是硬扛,而是享受过程。',
-      color: 'from-orange-50 to-orange-100',
-      accentColor: 'text-orange-600'
+      quote: '跟着天性走，副业不再是硬扛，而是享受过程。'
     },
     {
       id: 4,
       emoji: '🎨',
       title: '创意工作倦怠者',
-      painPoint: '做设计5年,越来越没灵感,怀疑自己是不是不适合这行',
+      painPoint: '做设计5年，越来越没灵感，怀疑自己是不是不适合这行',
       changes: [
-        '才干显示"完美"+"理念"排名靠前,但"适应"很低',
-        'AI建议:从快节奏执行转向创意策划和品牌方向',
-        '现在做品牌顾问,每个项目都能深度投入创作'
+        '才干显示"完美"+"理念"排名靠前，但"适应"很低',
+        'AI建议：从快节奏执行转向创意策划和品牌方向',
+        '现在做品牌顾问，每个项目都能深度投入创作'
       ],
-      quote: '不是我没灵感,是我需要更多时间去打磨作品。',
-      color: 'from-purple-50 to-purple-100',
-      accentColor: 'text-purple-600'
+      quote: '不是我没灵感，是我需要更多时间去打磨作品。'
     },
     {
       id: 5,
       emoji: '📚',
       title: '职业转型焦虑者',
-      painPoint: '30岁想转行,但不知道自己除了现在的工作还能做什么',
+      painPoint: '30岁想转行，但不知道自己除了现在的工作还能做什么',
       changes: [
-        '才干组合:"统筹"+"责任"+"纪律"排名前列',
-        'AI分析:适合项目管理、运营类岗位',
-        '成功转型为项目经理,收入和成就感双提升'
+        '才干组合："统筹"+"责任"+"纪律"排名前列',
+        'AI分析：适合项目管理、运营类岗位',
+        '成功转型为项目经理，收入和成就感双提升'
       ],
-      quote: '年龄不是限制,找对方向才是关键。',
-      color: 'from-teal-50 to-teal-100',
-      accentColor: 'text-teal-600'
+      quote: '年龄不是限制，找对方向才是关键。'
     },
     {
       id: 6,
       emoji: '🌟',
       title: '自我认知模糊者',
-      painPoint: '一直在模仿别人的成功路径,但总感觉不对劲',
+      painPoint: '一直在模仿别人的成功路径，但总感觉不对劲',
       changes: [
         '才干测试显示独特的"伯乐"+"个别"组合',
-        'AI建议:发挥识人长处,往HR、教练方向发展',
-        '开始做职业咨询,帮助他人的同时找到自我价值'
+        'AI建议：发挥识人长处，往HR、教练方向发展',
+        '开始做职业咨询，帮助他人的同时找到自我价值'
       ],
-      quote: '停止模仿,做自己,反而走得更顺。',
-      color: 'from-yellow-50 to-yellow-100',
-      accentColor: 'text-yellow-600'
+      quote: '停止模仿，做自己，反而走得更顺。'
     }
   ]
 
@@ -108,58 +96,58 @@ export default function Home() {
     {
       icon: '🎯',
       title: '精准定位天赋',
-      description: '基于盖洛普34项才干理论,科学识别你的独特优势组合'
+      description: '基于盖洛普34项才干理论，科学识别你的独特优势组合'
     },
     {
       icon: '🤖',
       title: 'AI 深度解读',
-      description: '结合你的才干排序和真实经历,生成个性化成长建议'
+      description: '结合你的才干排序和真实经历，生成个性化成长建议'
     },
     {
       icon: '📊',
       title: '可视化进度',
-      description: '通过成长树动画,见证每一步的改变和进步'
+      description: '通过成长树动画，见证每一步的改变和进步'
     },
     {
       icon: '💡',
       title: '场景化建议',
-      description: '针对职场、人际、副业等具体场景,提供可执行的行动计划'
+      description: '针对职场、人际、副业等具体场景，提供可执行的行动计划'
     },
     {
       icon: '🔄',
       title: '持续迭代优化',
-      description: '随着你的成长,不断调整和优化成长路径'
+      description: '随着你的成长，不断调整和优化成长路径'
     },
     {
       icon: '🔒',
       title: '数据隐私保护',
-      description: '所有数据本地存储,完全掌控你的个人信息'
+      description: '所有数据本地存储，完全掌控你的个人信息'
     }
   ]
 
   const howItWorks = [
     {
       step: '01',
-      title: '发现你的才干',
-      description: '选择34项盖洛普才干的排序,找出你的优势组合',
+      title: '认识你的天赋',
+      description: '按照你的盖洛普报告的排序，从第一个才干开始点击，确定你的才干排序。',
       icon: '🌱'
     },
     {
       step: '02',
-      title: '确定优先维度',
-      description: '从执行力、影响力、关系建立、战略思维中选择优先级',
+      title: '确定优势维度',
+      description: '选择你的四大维度排序',
       icon: '🎯'
     },
     {
       step: '03',
-      title: 'AI 对话分析',
-      description: '分享你的真实经历,AI 深入理解你的才干应用场景',
+      title: 'AI 优势解读',
+      description: '分享你的真实经历，AI 会帮你解析才干是如何促进你的成功的',
       icon: '💬'
     },
     {
       step: '04',
-      title: '获得成长建议',
-      description: '收到个性化的行动计划,开始你的成长之旅',
+      title: '如何发挥优势',
+      description: '轻松定制匹配你的优势发展计划，促进行动',
       icon: '🚀'
     }
   ]
@@ -297,7 +285,7 @@ export default function Home() {
               onClick={handleStartClick}
               className="px-12 py-5 bg-emerald-500 text-white text-lg rounded-full font-bold hover:bg-emerald-600 transition-all hover:scale-105 shadow-xl hover:shadow-2xl"
             >
-              立即开始成长之旅 🌱
+              立即开始优势发展之旅 🌱
             </button>
           </motion.div>
         </div>
@@ -323,11 +311,11 @@ export default function Home() {
           </motion.div>
 
           {/* 双向滚动轮播 */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {/* 第一排 - 向左滚动 */}
             <div className="overflow-hidden">
               <motion.div
-                className="flex gap-6"
+                className="flex gap-4"
                 animate={{
                   x: [0, -1200]
                 }}
@@ -341,38 +329,35 @@ export default function Home() {
                 {[...firstRowStories, ...firstRowStories].map((story, index) => (
                   <div
                     key={`row1-${index}`}
-                    className="min-w-[350px] md:min-w-[400px]"
+                    className="min-w-[280px] md:min-w-[300px]"
                   >
-                    <div className={`bg-gradient-to-br ${story.color} rounded-2xl p-6 md:p-8 shadow-xl h-full flex flex-col justify-between`}>
+                    <div className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} rounded-xl p-4 shadow-md h-full flex flex-col justify-between border border-gray-100`}>
                       {/* 头部 */}
-                      <div className="mb-4">
-                        <div className="text-4xl mb-3">{story.emoji}</div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      <div className="mb-3">
+                        <div className="text-3xl mb-2">{story.emoji}</div>
+                        <h3 className="text-base font-bold text-gray-900 mb-1.5">
                           {story.title}
                         </h3>
-                        <p className="text-gray-700 text-sm font-medium">
+                        <p className="text-gray-600 text-xs">
                           {story.painPoint}
                         </p>
                       </div>
 
                       {/* 改变要点 */}
-                      <div className="mb-4 space-y-2">
+                      <div className="mb-3 space-y-1.5">
                         {story.changes.map((change, i) => (
-                          <div key={i} className="flex items-start gap-2">
-                            <span className="text-emerald-500 font-bold text-base mt-0.5">✓</span>
-                            <p className="text-gray-700 text-xs leading-relaxed">{change}</p>
+                          <div key={i} className="flex items-start gap-1.5">
+                            <span className="text-emerald-500 font-bold text-sm mt-0.5">✓</span>
+                            <p className="text-gray-600 text-xs leading-relaxed">{change}</p>
                           </div>
                         ))}
                       </div>
 
                       {/* 用户引用 */}
-                      <div className="pt-4 border-t border-gray-300">
-                        <div className="flex items-start gap-2">
-                          <span className={`${story.accentColor} text-xl`}>"</span>
-                          <p className={`${story.accentColor} font-semibold italic text-xs`}>
-                            {story.quote}
-                          </p>
-                        </div>
+                      <div className="pt-3 border-t border-gray-200">
+                        <p className="text-gray-700 font-medium italic text-xs">
+                          "{story.quote}"
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -383,7 +368,7 @@ export default function Home() {
             {/* 第二排 - 向右滚动 */}
             <div className="overflow-hidden">
               <motion.div
-                className="flex gap-6"
+                className="flex gap-4"
                 animate={{
                   x: [-1200, 0]
                 }}
@@ -397,38 +382,35 @@ export default function Home() {
                 {[...secondRowStories, ...secondRowStories].map((story, index) => (
                   <div
                     key={`row2-${index}`}
-                    className="min-w-[350px] md:min-w-[400px]"
+                    className="min-w-[280px] md:min-w-[300px]"
                   >
-                    <div className={`bg-gradient-to-br ${story.color} rounded-2xl p-6 md:p-8 shadow-xl h-full flex flex-col justify-between`}>
+                    <div className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} rounded-xl p-4 shadow-md h-full flex flex-col justify-between border border-gray-100`}>
                       {/* 头部 */}
-                      <div className="mb-4">
-                        <div className="text-4xl mb-3">{story.emoji}</div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      <div className="mb-3">
+                        <div className="text-3xl mb-2">{story.emoji}</div>
+                        <h3 className="text-base font-bold text-gray-900 mb-1.5">
                           {story.title}
                         </h3>
-                        <p className="text-gray-700 text-sm font-medium">
+                        <p className="text-gray-600 text-xs">
                           {story.painPoint}
                         </p>
                       </div>
 
                       {/* 改变要点 */}
-                      <div className="mb-4 space-y-2">
+                      <div className="mb-3 space-y-1.5">
                         {story.changes.map((change, i) => (
-                          <div key={i} className="flex items-start gap-2">
-                            <span className="text-emerald-500 font-bold text-base mt-0.5">✓</span>
-                            <p className="text-gray-700 text-xs leading-relaxed">{change}</p>
+                          <div key={i} className="flex items-start gap-1.5">
+                            <span className="text-emerald-500 font-bold text-sm mt-0.5">✓</span>
+                            <p className="text-gray-600 text-xs leading-relaxed">{change}</p>
                           </div>
                         ))}
                       </div>
 
                       {/* 用户引用 */}
-                      <div className="pt-4 border-t border-gray-300">
-                        <div className="flex items-start gap-2">
-                          <span className={`${story.accentColor} text-xl`}>"</span>
-                          <p className={`${story.accentColor} font-semibold italic text-xs`}>
-                            {story.quote}
-                          </p>
-                        </div>
+                      <div className="pt-3 border-t border-gray-200">
+                        <p className="text-gray-700 font-medium italic text-xs">
+                          "{story.quote}"
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -443,11 +425,10 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8"
+            className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 max-w-3xl mx-auto"
           >
             {[
               { percentage: '85%', description: '找到更适合的职业方向' },
-              { percentage: '73%', description: '平均任务完成进度' },
               { percentage: '92%', description: '表示"更了解自己了"' }
             ].map((stat, i) => (
               <div key={i} className="text-center">
@@ -538,11 +519,8 @@ export default function Home() {
               onClick={handleStartClick}
               className="px-12 py-5 bg-white text-emerald-600 text-lg rounded-full font-bold hover:bg-emerald-50 transition-all hover:scale-105 shadow-2xl"
             >
-              开始你的成长之旅 🌱
+              开始你的优势发展之旅 🌱
             </button>
-            <p className="text-emerald-100 mt-6 text-sm">
-              完全免费 · 无需注册 · 数据本地存储
-            </p>
           </motion.div>
         </div>
       </section>
