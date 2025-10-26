@@ -61,7 +61,7 @@ export default function WelcomeTree() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-2xl font-semibold text-gray-700 leading-relaxed"
+              className="text-2xl lg:text-3xl font-semibold text-gray-600 leading-relaxed tracking-wide"
             >
               让优势顺着天性流动。
             </motion.p>
