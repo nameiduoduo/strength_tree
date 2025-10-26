@@ -317,19 +317,19 @@ export default function Home() {
               <motion.div
                 className="flex gap-4"
                 animate={{
-                  x: [0, -1200]
+                  x: [0, -920]
                 }}
                 transition={{
-                  duration: 20,
+                  duration: 25,
                   repeat: Infinity,
                   ease: "linear"
                 }}
               >
-                {/* 复制两遍实现无缝循环 */}
-                {[...firstRowStories, ...firstRowStories].map((story, index) => (
+                {/* 复制三遍实现无缝循环 */}
+                {[...firstRowStories, ...firstRowStories, ...firstRowStories].map((story, index) => (
                   <div
                     key={`row1-${index}`}
-                    className="min-w-[280px] md:min-w-[300px]"
+                    className="min-w-[280px] md:min-w-[300px] flex-shrink-0"
                   >
                     <div className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} rounded-xl p-4 shadow-md h-full flex flex-col justify-between border border-gray-100`}>
                       {/* 头部 */}
@@ -370,19 +370,19 @@ export default function Home() {
               <motion.div
                 className="flex gap-4"
                 animate={{
-                  x: [-1200, 0]
+                  x: [-920, 0]
                 }}
                 transition={{
-                  duration: 20,
+                  duration: 25,
                   repeat: Infinity,
                   ease: "linear"
                 }}
               >
-                {/* 复制两遍实现无缝循环 */}
-                {[...secondRowStories, ...secondRowStories].map((story, index) => (
+                {/* 复制三遍实现无缝循环 */}
+                {[...secondRowStories, ...secondRowStories, ...secondRowStories].map((story, index) => (
                   <div
                     key={`row2-${index}`}
-                    className="min-w-[280px] md:min-w-[300px]"
+                    className="min-w-[280px] md:min-w-[300px] flex-shrink-0"
                   >
                     <div className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} rounded-xl p-4 shadow-md h-full flex flex-col justify-between border border-gray-100`}>
                       {/* 头部 */}
