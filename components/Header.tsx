@@ -32,7 +32,7 @@ export default function Header() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 cursor-pointer"
+          className="flex items-center gap-1 cursor-pointer"
           onClick={handleLogoClick}
         >
           <div className="w-10 h-10 rounded-full overflow-hidden">
@@ -44,7 +44,7 @@ export default function Header() {
               className="object-cover"
             />
           </div>
-          <span className="text-lg font-medium text-gray-800">顺流而生</span>
+          <span className="text-xl font-medium bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-500 bg-clip-text text-transparent tracking-wider">顺流而生</span>
         </motion.div>
 
         <motion.div
