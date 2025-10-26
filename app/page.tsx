@@ -129,13 +129,13 @@ export default function Home() {
     {
       step: '01',
       title: '认识你的天赋',
-      description: '按照你的盖洛普报告的排序，从第一个才干开始点击，确定你的才干排序。',
+      description: '根据你的盖洛普测评报告，从 1-34 依次点击才干名称',
       icon: '🌱'
     },
     {
       step: '02',
       title: '确定优势维度',
-      description: '选择你的四大维度排序',
+      description: '根据你的盖洛普测评报告，依次选择你的四大维度优势',
       icon: '🎯'
     },
     {
