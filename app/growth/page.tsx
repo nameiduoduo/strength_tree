@@ -91,11 +91,24 @@ export default function GrowthPage() {
               <div className="flex flex-wrap gap-2 items-center">
                 <span className="text-sm text-gray-500">维度优先级:</span>
                 <div className="flex gap-2">
-                  {profile.categories.map((cat, i) => (
-                    <span key={cat} className="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-700">
-                      {i + 1}. {cat}
-                    </span>
-                  ))}
+                  {profile.categories.map((cat, i) => {
+                    const categoryColors: Record<string, { bg: string; text: string }> = {
+                      '执行力': { bg: '#70347F', text: '#ffffff' },
+                      '影响力': { bg: '#cf773c', text: '#ffffff' },
+                      '关系建立': { bg: '#376fb2', text: '#ffffff' },
+                      '战略思维': { bg: '#499167', text: '#ffffff' }
+                    };
+                    const colors = categoryColors[cat] || { bg: '#94a3b8', text: '#ffffff' };
+                    return (
+                      <span
+                        key={cat}
+                        className="text-xs px-2 py-1 rounded-full font-medium"
+                        style={{ backgroundColor: colors.bg, color: colors.text }}
+                      >
+                        {i + 1}. {cat}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
               <div className="flex items-center gap-2">

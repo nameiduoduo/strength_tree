@@ -12,7 +12,7 @@ export default function TaskChecklist({ suggestions, onTaskToggle }: TaskCheckli
   const router = useRouter();
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">你的成长建议</h2>
+      <h2 className="text-2xl font-bold text-gray-900">你的行动建议</h2>
 
       <div className="space-y-6">
         {suggestions.map((suggestion, index) => {
@@ -63,36 +63,18 @@ export default function TaskChecklist({ suggestions, onTaskToggle }: TaskCheckli
 
               {/* 任务列表 */}
               <div className="space-y-3 ml-11">
-                {suggestion.tasks.map((task) => (
-                  <label
+                {suggestion.tasks.map((task, idx) => (
+                  <div
                     key={task.id}
-                    className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-all ${
-                      task.completed
-                        ? 'bg-green-50 border border-green-200'
-                        : 'bg-gray-50 hover:bg-gray-100 border border-gray-200'
-                    }`}
+                    className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-200"
                   >
-                    <input
-                      type="checkbox"
-                      checked={task.completed}
-                      onChange={() => onTaskToggle(suggestion.id, task.id)}
-                      className="mt-1 w-5 h-5 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 cursor-pointer"
-                    />
-                    <span
-                      className={`flex-1 text-sm ${
-                        task.completed
-                          ? 'text-gray-500 line-through'
-                          : 'text-gray-900'
-                      }`}
-                    >
+                    <span className="flex-shrink-0 w-5 h-5 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-xs font-medium mt-0.5">
+                      {idx + 1}
+                    </span>
+                    <span className="flex-1 text-sm text-gray-900">
                       {task.content}
                     </span>
-                    {task.completed && (
-                      <span className="text-green-600 text-sm font-medium">
-                        ✓ 已完成
-                      </span>
-                    )}
-                  </label>
+                  </div>
                 ))}
               </div>
 
