@@ -25,10 +25,10 @@ export default function WelcomeTree() {
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 relative overflow-hidden">
       {/* 主要内容区 */}
       <div className="min-h-screen flex items-center justify-center px-8 py-20">
-        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
           {/* 左侧文字内容 */}
-          <div className="space-y-8 lg:col-span-5">
+          <div className="space-y-8 lg:col-span-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -78,9 +78,9 @@ export default function WelcomeTree() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex items-center justify-center lg:col-span-7"
+            className="flex items-center justify-start lg:col-span-6 lg:-ml-8"
           >
-            <div className="w-[70%] max-w-lg aspect-square">
+            <div className="w-[85%] max-w-lg aspect-square">
               {animationData ? (
                 <Lottie
                   animationData={animationData}
