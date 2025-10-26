@@ -2,10 +2,20 @@
 
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import SimpleTree from './SimpleTree'
+import { useEffect, useState } from 'react'
+import Lottie from 'lottie-react'
 
 export default function WelcomeTree() {
   const router = useRouter()
+  const [animationData, setAnimationData] = useState(null)
+
+  useEffect(() => {
+    // 加载 Lottie 动画数据
+    fetch('https://assets-v2.lottiefiles.com/a/91f37116-1188-11ee-b93e-83ef72785cc2/4Q2aybbZWv.json')
+      .then(res => res.json())
+      .then(data => setAnimationData(data))
+      .catch(err => console.error('Failed to load animation:', err))
+  }, [])
 
   const handleStart = () => {
     router.push('/start')
@@ -76,7 +86,17 @@ export default function WelcomeTree() {
             className="flex items-center justify-center"
           >
             <div className="w-full max-w-md">
-              <SimpleTree />
+              {animationData ? (
+                <Lottie
+                  animationData={animationData}
+                  loop={true}
+                  autoplay={true}
+                />
+              ) : (
+                <div className="w-full h-96 flex items-center justify-center">
+                  <div className="animate-pulse text-emerald-500">加载中...</div>
+                </div>
+              )}
             </div>
           </motion.div>
 
