@@ -119,8 +119,8 @@ export default function TalentChatAnalysis({ talents, categories, onComplete }: 
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="分享你的经历..."
-            className="flex-1 px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent resize-none"
-            style={{ borderColor: '#02BD7D', '--tw-ring-color': '#02BD7D' } as React.CSSProperties}
+            className="flex-1 px-4 py-3 border rounded-lg focus:outline-none resize-none"
+            style={{ borderColor: '#02BD7D' }}
             rows={3}
             disabled={loading}
           />
