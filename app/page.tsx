@@ -418,29 +418,6 @@ export default function Home() {
               </motion.div>
             </div>
           </div>
-
-          {/* 数据统计 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 max-w-3xl mx-auto"
-          >
-            {[
-              { percentage: '85%', description: '找到更适合的职业方向' },
-              { percentage: '92%', description: '表示"更了解自己了"' }
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="text-5xl font-bold text-emerald-600 mb-2">
-                  {stat.percentage}
-                </div>
-                <div className="text-gray-600 font-medium">
-                  {stat.description}
-                </div>
-              </div>
-            ))}
-          </motion.div>
         </div>
       </section>
 
