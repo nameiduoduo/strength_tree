@@ -18,6 +18,8 @@ function FocusContent() {
   const [guidingQuestions, setGuidingQuestions] = useState<string[]>([]);
   const [questionsLoading, setQuestionsLoading] = useState(false);
   const [questionsError, setQuestionsError] = useState<string | null>(null);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
+  const [editingContent, setEditingContent] = useState('');
 
   useEffect(() => {
     const savedProfile = loadProfile();
@@ -126,6 +128,61 @@ function FocusContent() {
     saveProfile(updatedProfile);
     setProfile(updatedProfile);
     setSuggestion(updatedProfile.suggestions[suggestionIndex]);
+  };
+
+  const handleDeleteTask = (taskId: string) => {
+    if (!profile || !suggestion) return;
+    if (!confirm('确定要删除这个任务吗?')) return;
+
+    const updatedProfile = { ...profile };
+    const suggestionIndex = updatedProfile.suggestions.findIndex(s => s.id === suggestion.id);
+    if (suggestionIndex === -1) return;
+
+    // 从 userTasks 中删除任务
+    const userTasks = updatedProfile.suggestions[suggestionIndex].userTasks || [];
+    updatedProfile.suggestions[suggestionIndex].userTasks = userTasks.filter(t => t.id !== taskId);
+
+    updatedProfile.progress = calculateProgress(updatedProfile);
+    updatedProfile.updatedAt = new Date().toISOString();
+
+    saveProfile(updatedProfile);
+    setProfile(updatedProfile);
+    setSuggestion(updatedProfile.suggestions[suggestionIndex]);
+  };
+
+  const handleStartEdit = (taskId: string, currentContent: string) => {
+    setEditingTaskId(taskId);
+    setEditingContent(currentContent);
+  };
+
+  const handleSaveEdit = (taskId: string) => {
+    if (!profile || !suggestion) return;
+    if (editingContent.trim() === '') {
+      setEditingTaskId(null);
+      return;
+    }
+
+    const updatedProfile = { ...profile };
+    const suggestionIndex = updatedProfile.suggestions.findIndex(s => s.id === suggestion.id);
+    if (suggestionIndex === -1) return;
+
+    // 在 userTasks 中查找并更新任务
+    const userTasks = updatedProfile.suggestions[suggestionIndex].userTasks || [];
+    const task = userTasks.find(t => t.id === taskId);
+    if (!task) return;
+
+    task.content = editingContent.trim();
+    updatedProfile.updatedAt = new Date().toISOString();
+
+    saveProfile(updatedProfile);
+    setProfile(updatedProfile);
+    setSuggestion(updatedProfile.suggestions[suggestionIndex]);
+    setEditingTaskId(null);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingTaskId(null);
+    setEditingContent('');
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -295,36 +352,103 @@ function FocusContent() {
               </h3>
               <div className="space-y-3">
                 {userTasks.map((task) => (
-                  <label
+                  <div
                     key={task.id}
-                    className={`flex items-start gap-3 p-4 rounded-lg cursor-pointer transition-all ${
+                    className={`flex items-start gap-3 p-4 rounded-lg transition-all ${
                       task.completed
                         ? 'bg-green-50 border-2 border-green-200'
-                        : 'bg-gray-50 hover:bg-gray-100 border-2 border-gray-200'
+                        : 'bg-gray-50 border-2 border-gray-200'
                     }`}
                   >
                     <input
                       type="checkbox"
                       checked={task.completed}
                       onChange={() => handleTaskToggle(task.id)}
-                      className="mt-1 w-5 h-5 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 cursor-pointer"
+                      className="mt-1 w-5 h-5 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 cursor-pointer flex-shrink-0"
+                      disabled={editingTaskId === task.id}
                     />
-                    <span
-                      className={`flex-1 ${
-                        task.completed
-                          ? 'text-gray-500 line-through'
-                          : 'text-gray-900'
-                      }`}
-                    >
-                      {task.content}
-                    </span>
-                    {task.completed && (
-                      <span className="text-green-600 font-medium flex items-center gap-1">
-                        <span>✓</span>
-                        <span className="text-sm">已完成</span>
+
+                    {editingTaskId === task.id ? (
+                      <input
+                        type="text"
+                        value={editingContent}
+                        onChange={(e) => setEditingContent(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            handleSaveEdit(task.id);
+                          } else if (e.key === 'Escape') {
+                            handleCancelEdit();
+                          }
+                        }}
+                        className="flex-1 px-3 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        style={{ borderColor: '#02BD7D' }}
+                        autoFocus
+                      />
+                    ) : (
+                      <span
+                        className={`flex-1 ${
+                          task.completed
+                            ? 'text-gray-500 line-through'
+                            : 'text-gray-900'
+                        }`}
+                      >
+                        {task.content}
                       </span>
                     )}
-                  </label>
+
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      {task.completed && editingTaskId !== task.id && (
+                        <span className="text-green-600 font-medium flex items-center gap-1">
+                          <span>✓</span>
+                          <span className="text-sm">已完成</span>
+                        </span>
+                      )}
+
+                      {editingTaskId === task.id ? (
+                        <>
+                          <button
+                            onClick={() => handleSaveEdit(task.id)}
+                            className="text-green-600 hover:text-green-700 transition-colors p-1"
+                            title="保存"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={handleCancelEdit}
+                            className="text-gray-500 hover:text-gray-700 transition-colors p-1"
+                            title="取消"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => handleStartEdit(task.id, task.content)}
+                            className="text-gray-500 hover:text-blue-600 transition-colors p-1"
+                            title="编辑"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={() => handleDeleteTask(task.id)}
+                            className="text-gray-500 hover:text-red-600 transition-colors p-1"
+                            title="删除"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
