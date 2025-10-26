@@ -1,7 +1,7 @@
 'use client'
 
 import WelcomeTree from '@/components/WelcomeTree'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import React from 'react'
