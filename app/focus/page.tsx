@@ -364,7 +364,11 @@ function FocusContent() {
                       type="checkbox"
                       checked={task.completed}
                       onChange={() => handleTaskToggle(task.id)}
-                      className="mt-1 w-5 h-5 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2 cursor-pointer flex-shrink-0"
+                      className="mt-1 w-5 h-5 border-gray-300 rounded focus:ring-2 cursor-pointer flex-shrink-0"
+                      style={{
+                        accentColor: '#222226',
+                        '--tw-ring-color': '#222226'
+                      } as React.CSSProperties}
                       disabled={editingTaskId === task.id}
                     />
 

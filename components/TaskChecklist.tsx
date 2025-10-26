@@ -24,7 +24,8 @@ export default function TaskChecklist({ suggestions, onTaskToggle }: TaskCheckli
               {/* 建议标题 */}
               <div className="mb-4">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="flex items-center justify-center w-8 h-8 bg-blue-100 text-blue-600 rounded-full font-bold text-sm">
+                  <span className="flex items-center justify-center w-8 h-8 text-white rounded-full font-bold text-sm"
+                        style={{ backgroundColor: '#222226' }}>
                     {index + 1}
                   </span>
                   <h3 className="text-lg font-bold text-gray-900">

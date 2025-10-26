@@ -79,7 +79,8 @@ export default function GrowthPage() {
             </h1>
             <button
               onClick={handleReset}
-              className="px-4 py-2 text-sm border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+              className="px-4 py-2 text-sm border rounded-lg text-white hover:bg-[#01a86a] transition-colors"
+              style={{ backgroundColor: '#02BD7D', borderColor: '#02BD7D' }}
             >
               重新开始
             </button>
