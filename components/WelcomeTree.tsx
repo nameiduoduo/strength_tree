@@ -70,11 +70,6 @@ export default function WelcomeTree() {
                 开始种下你的第一颗种子 🌱
               </button>
 
-              <button
-                className="px-8 py-4 bg-white text-gray-700 rounded-full font-medium hover:bg-gray-50 transition-all border border-gray-200 flex items-center gap-2"
-              >
-                先看看怎么生长 →
-              </button>
             </motion.div>
           </div>
 
