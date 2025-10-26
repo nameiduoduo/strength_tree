@@ -100,7 +100,8 @@ export default function TaskChecklist({ suggestions, onTaskToggle }: TaskCheckli
               <div className="mt-4 ml-11">
                 <button
                   onClick={() => router.push(`/focus?id=${suggestion.id}`)}
-                  className="w-full px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-medium hover:from-green-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                  className="w-full px-4 py-3 text-white rounded-lg font-medium hover:bg-[#01a86a] transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                  style={{ backgroundColor: '#02BD7D' }}
                 >
                   <span>🎯</span>
                   <span>专注于这组建议</span>

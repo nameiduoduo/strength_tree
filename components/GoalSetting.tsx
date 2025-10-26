@@ -32,11 +32,11 @@ export default function GoalSetting({ onSubmit, loading }: GoalSettingProps) {
         </p>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <p className="text-sm text-blue-800">
+      <div className="bg-gray-50 border border-gray-300 rounded-lg p-4">
+        <p className="text-sm text-gray-700">
           💡 <strong>提示:</strong> 你可以分享具体的目标,比如:
         </p>
-        <ul className="mt-2 text-sm text-blue-700 space-y-1 ml-6 list-disc">
+        <ul className="mt-2 text-sm text-gray-600 space-y-1 ml-6 list-disc">
           <li>想要提升某项工作技能</li>
           <li>希望改善人际关系</li>
           <li>想要开启一个新项目</li>
@@ -65,7 +65,8 @@ export default function GoalSetting({ onSubmit, loading }: GoalSettingProps) {
       <button
         onClick={handleSubmit}
         disabled={!goal.trim() || loading}
-        className="w-full px-6 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium text-lg flex items-center justify-center gap-2"
+        className="w-full px-6 py-4 text-white rounded-lg hover:bg-[#01a86a] disabled:opacity-50 disabled:cursor-not-allowed font-medium text-lg flex items-center justify-center gap-2"
+        style={{ backgroundColor: loading ? undefined : '#02BD7D' }}
       >
         {loading ? (
           <>

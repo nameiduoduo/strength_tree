@@ -119,14 +119,16 @@ export default function TalentChatAnalysis({ talents, categories, onComplete }: 
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="分享你的经历..."
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="flex-1 px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent resize-none"
+            style={{ borderColor: '#02BD7D', '--tw-ring-color': '#02BD7D' } as React.CSSProperties}
             rows={3}
             disabled={loading}
           />
           <button
             onClick={handleSendMessage}
             disabled={!input.trim() || loading}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed self-end"
+            className="px-6 py-3 text-white rounded-lg hover:bg-[#01a86a] disabled:opacity-50 disabled:cursor-not-allowed self-end"
+            style={{ backgroundColor: '#02BD7D' }}
           >
             发送
           </button>
@@ -134,7 +136,8 @@ export default function TalentChatAnalysis({ talents, categories, onComplete }: 
 
         <button
           onClick={() => onComplete(messages)}
-          className="w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+          className="w-full px-6 py-3 text-white rounded-lg hover:bg-[#1a1a1e] font-medium"
+          style={{ backgroundColor: '#222226' }}
         >
           解读完成,进入下一步
         </button>

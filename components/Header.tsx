@@ -37,7 +37,7 @@ export default function Header() {
         >
           <div className="w-10 h-10 rounded-full overflow-hidden">
             <Image
-              src="/logo.jpg"
+              src="/logo.png"
               alt="顺流而生 Logo"
               width={40}
               height={40}

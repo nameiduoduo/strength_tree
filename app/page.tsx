@@ -438,7 +438,7 @@ export default function Home() {
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-12 h-12 rounded-full overflow-hidden">
                   <Image
-                    src="/logo.jpg"
+                    src="/logo.png"
                     alt="顺流而生 Logo"
                     width={48}
                     height={48}
