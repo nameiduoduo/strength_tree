@@ -157,7 +157,7 @@ function FocusContent() {
   const progress = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   return (
-    <div className="min-h-screen pt-8 pb-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-green-50">
+    <div className="min-h-screen pt-8 pb-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 to-teal-50">
       <div className="max-w-4xl mx-auto">
         {/* 头部 */}
         <div className="mb-8">
@@ -182,7 +182,8 @@ function FocusContent() {
           {/* 建议标题 */}
           <div>
             <div className="flex items-start gap-3 mb-3">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+              <div className="flex-shrink-0 w-8 h-8 text-white rounded-full flex items-center justify-center font-bold text-sm"
+                   style={{ backgroundColor: '#02BD7D' }}>
                 {profile.suggestions.findIndex(s => s.id === suggestion.id) + 1}
               </div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -195,15 +196,15 @@ function FocusContent() {
 
             {/* 参考要点 - 显示 AI 生成的任务作为参考 */}
             {aiTasks.length > 0 && (
-              <div className="ml-11 bg-indigo-50 rounded-lg p-4 border border-indigo-100">
-                <h4 className="text-sm font-semibold text-indigo-900 mb-3 flex items-center gap-2">
+              <div className="ml-11 bg-green-50 rounded-lg p-4 border border-green-100">
+                <h4 className="text-sm font-semibold text-green-900 mb-3 flex items-center gap-2">
                   <span>📋</span>
                   <span>参考要点</span>
                 </h4>
                 <ul className="space-y-2">
                   {aiTasks.map((task, idx) => (
-                    <li key={task.id} className="flex items-start gap-2 text-sm text-indigo-900">
-                      <span className="flex-shrink-0 w-5 h-5 bg-indigo-200 text-indigo-800 rounded-full flex items-center justify-center text-xs font-medium">
+                    <li key={task.id} className="flex items-start gap-2 text-sm text-green-900">
+                      <span className="flex-shrink-0 w-5 h-5 bg-green-200 text-green-800 rounded-full flex items-center justify-center text-xs font-medium">
                         {idx + 1}
                       </span>
                       <span className="pt-0.5">{task.content}</span>
@@ -215,7 +216,7 @@ function FocusContent() {
           </div>
 
           {/* 引导问题 */}
-          <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
+          <div className="bg-green-50 rounded-xl p-6 border border-green-100">
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <span>💡</span>
               <span>思考这些问题,帮助你制定具体行动</span>
@@ -224,7 +225,8 @@ function FocusContent() {
             {questionsLoading ? (
               <div className="flex items-center justify-center py-8">
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+                  <div className="w-8 h-8 border-4 border-green-200 rounded-full animate-spin"
+                       style={{ borderTopColor: '#02BD7D' }}></div>
                   <p className="text-sm text-gray-600">AI 正在为你生成专属引导问题...</p>
                 </div>
               </div>
@@ -234,7 +236,7 @@ function FocusContent() {
                 <ul className="space-y-3">
                   {guidingQuestions.map((question, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-6 h-6 bg-blue-200 text-blue-700 rounded-full flex items-center justify-center text-sm font-medium">
+                      <span className="flex-shrink-0 w-6 h-6 bg-green-200 text-green-700 rounded-full flex items-center justify-center text-sm font-medium">
                         {index + 1}
                       </span>
                       <span className="text-gray-700 pt-0.5">{question}</span>
@@ -246,7 +248,7 @@ function FocusContent() {
               <ul className="space-y-3">
                 {guidingQuestions.map((question, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-blue-200 text-blue-700 rounded-full flex items-center justify-center text-sm font-medium">
+                    <span className="flex-shrink-0 w-6 h-6 bg-green-200 text-green-700 rounded-full flex items-center justify-center text-sm font-medium">
                       {index + 1}
                     </span>
                     <span className="text-gray-700 pt-0.5">{question}</span>
@@ -268,12 +270,14 @@ function FocusContent() {
                 onChange={(e) => setNewTask(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="输入一个具体的行动计划,按回车添加..."
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="flex-1 px-4 py-3 border rounded-lg focus:outline-none"
+                style={{ borderColor: '#02BD7D' }}
               />
               <button
                 onClick={handleAddTask}
                 disabled={!newTask.trim()}
-                className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-all"
+                className="px-6 py-3 text-white rounded-lg hover:bg-[#01a86a] disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-all"
+                style={{ backgroundColor: '#02BD7D' }}
               >
                 添加
               </button>
@@ -353,7 +357,8 @@ function FocusContent() {
             </p>
             <button
               onClick={handleBackToGrowth}
-              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+              className="px-6 py-3 text-white rounded-lg hover:bg-[#01a86a] font-medium"
+              style={{ backgroundColor: '#02BD7D' }}
             >
               查看其他建议
             </button>

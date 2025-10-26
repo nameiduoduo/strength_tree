@@ -79,11 +79,11 @@ export default function Home() {
         {/* 头部 */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            发现你的盖洛普优势 🌱
+            如何发挥你的优势？从此处开始 🌱
           </h1>
           <p className="text-lg text-gray-600">
             {step <= 2 && '按顺序选择你的34项才干和4个维度'}
-            {step === 3 && '分享你的经历,深入了解你的才干'}
+            {step === 3 && '分享你的经历，深入了解你的才干是如何帮你取得成功的，这是你和其他人截然不同的原因。'}
             {step === 4 && '设定改变目标,获取针对性建议'}
           </p>
         </div>
@@ -169,7 +169,8 @@ export default function Home() {
               <button
                 onClick={() => setStep(2)}
                 disabled={!canProceedStep1}
-                className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-8 py-3 text-white rounded-lg font-medium hover:bg-[#1a1a1e] disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ backgroundColor: '#222226' }}
               >
                 下一步
               </button>
@@ -179,7 +180,8 @@ export default function Home() {
               <button
                 onClick={() => setStep(3)}
                 disabled={!canProceedStep2}
-                className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-8 py-3 text-white rounded-lg font-medium hover:bg-[#1a1a1e] disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ backgroundColor: '#222226' }}
               >
                 开始对话分析
               </button>

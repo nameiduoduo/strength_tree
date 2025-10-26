@@ -65,7 +65,7 @@ export default function CategorySelector({ selectedCategories, onSelect }: Categ
       </div>
 
       <p className="text-sm text-gray-600">
-        请按照对你最重要的顺序,依次选择4个盖洛普维度。这将帮助我们更好地理解你的优势分布。
+        请按照你的盖洛普报告中四个维度的排序点击按钮，这将帮助我们更好地理解你的优势分布。
       </p>
 
       {/* 维度列表 */}
