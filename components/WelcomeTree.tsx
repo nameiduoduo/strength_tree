@@ -28,22 +28,31 @@ export default function WelcomeTree() {
         <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
           {/* 左侧文字内容 */}
-          <div className="space-y-8 lg:col-span-6">
-            <motion.div
+          <div className="space-y-8 lg:col-span-6 max-w-4xl">
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 text-emerald-600 text-sm font-medium"
+              className="text-2xl lg:text-6xl font-bold text-emerald-600 leading-tight whitespace-nowrap"
+              style={{
+                textAlign: 'justify',
+                textAlignLast: 'justify',
+                textJustify: 'inter-character'
+              }}
             >
-              <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
-              Don’t rush. Just grow.
-            </motion.div>
+              Don't rush. Just grow.
+            </motion.h2>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight"
+              className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight whitespace-nowrap"
+              style={{
+                textAlign: 'justify',
+                textAlignLast: 'justify',
+                textJustify: 'inter-character'
+              }}
             >
               不追赶，只生长。
             </motion.h1>
@@ -78,9 +87,9 @@ export default function WelcomeTree() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex items-center justify-start lg:col-span-6 lg:-ml-8"
+            className="flex items-center justify-end lg:col-span-6 lg:ml-16"
           >
-            <div className="w-[85%] max-w-lg aspect-square">
+            <div className="w-full max-w-lg aspect-square">
               {animationData ? (
                 <Lottie
                   animationData={animationData}
