@@ -76,7 +76,7 @@ export default function WelcomeTree() {
                 onClick={handleStart}
                 className="px-8 py-4 bg-emerald-500 text-white rounded-full font-medium hover:bg-emerald-600 transition-all hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
               >
-                开始种下你的第一颗优势种子 🌱
+                开始种下你的第一颗优势种子 ✨
               </button>
 
             </motion.div>
