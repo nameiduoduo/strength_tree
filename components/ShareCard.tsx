@@ -116,7 +116,7 @@ export default function ShareCard({ talentLabel, primaryCategory }: ShareCardPro
                             {talent}
                           </span>
                           {idx < combination.talents.length - 1 && (
-                            <span className="text-3xl text-gray-300 mx-3">×</span>
+                            <span className="text-3xl text-gray-300 mx-3 inline-flex items-center justify-center" style={{ verticalAlign: 'middle', transform: 'translateX(0.1em)' }}>×</span>
                           )}
                         </span>
                       ))}
