@@ -1,6 +1,8 @@
 import { UserProfile } from '@/types';
 
 const STORAGE_KEY = 'gallup-profile';
+const REGENERATE_COUNT_KEY = 'gallup-regenerate-count';
+const MAX_REGENERATE_COUNT = 3;
 
 // 保存用户档案到LocalStorage
 export function saveProfile(profile: UserProfile): void {
@@ -127,4 +129,42 @@ export function calculateProgress(profile: UserProfile): number {
 
   if (totalTasks === 0) return 0;
   return Math.round((completedTasks / totalTasks) * 100);
+}
+
+// 获取重新生成次数
+export function getRegenerateCount(): number {
+  try {
+    if (typeof window !== 'undefined') {
+      const count = localStorage.getItem(REGENERATE_COUNT_KEY);
+      return count ? parseInt(count, 10) : 0;
+    }
+  } catch (error) {
+    console.error('读取重新生成次数失败:', error);
+  }
+  return 0;
+}
+
+// 增加重新生成次数
+export function incrementRegenerateCount(): number {
+  try {
+    if (typeof window !== 'undefined') {
+      const currentCount = getRegenerateCount();
+      const newCount = currentCount + 1;
+      localStorage.setItem(REGENERATE_COUNT_KEY, newCount.toString());
+      return newCount;
+    }
+  } catch (error) {
+    console.error('更新重新生成次数失败:', error);
+  }
+  return 0;
+}
+
+// 检查是否还能重新生成
+export function canRegenerate(): boolean {
+  return getRegenerateCount() < MAX_REGENERATE_COUNT;
+}
+
+// 获取剩余重新生成次数
+export function getRemainingRegenerateCount(): number {
+  return Math.max(0, MAX_REGENERATE_COUNT - getRegenerateCount());
 }

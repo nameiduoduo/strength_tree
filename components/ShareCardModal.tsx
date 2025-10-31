@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { UserProfile, TalentLabel } from '@/types';
-import { saveProfile } from '@/lib/storage';
+import { saveProfile, canRegenerate, incrementRegenerateCount, getRemainingRegenerateCount } from '@/lib/storage';
 import ShareCard from './ShareCard';
 import { toPng } from 'html-to-image';
 
@@ -23,6 +23,7 @@ export default function ShareCardModal({
   const [isGenerating, setIsGenerating] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [remainingCount, setRemainingCount] = useState(3);
 
   // 生成才干标签
   const generateTalentLabel = async () => {
@@ -73,10 +74,13 @@ export default function ShareCardModal({
     }
   };
 
-  // 首次打开时,如果没有标签,自动生成
+  // 首次打开时,如果没有标签,自动生成;同时更新剩余次数
   useEffect(() => {
-    if (isOpen && !talentLabel && !isGenerating && !error) {
-      generateTalentLabel();
+    if (isOpen) {
+      setRemainingCount(getRemainingRegenerateCount());
+      if (!talentLabel && !isGenerating && !error) {
+        generateTalentLabel();
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
@@ -121,7 +125,14 @@ export default function ShareCardModal({
 
   // 重新生成
   const handleRegenerate = () => {
-    if (confirm('确定要重新生成才干标签吗?')) {
+    if (!canRegenerate()) {
+      alert('很抱歉,重新生成次数已用完。每个用户最多可以重新生成 3 次。');
+      return;
+    }
+
+    if (confirm(`确定要重新生成才干标签吗?\n\n剩余次数: ${remainingCount} 次`)) {
+      incrementRegenerateCount();
+      setRemainingCount(getRemainingRegenerateCount());
       generateTalentLabel();
     }
   };
@@ -195,14 +206,21 @@ export default function ShareCardModal({
 
                 <button
                   onClick={handleRegenerate}
-                  disabled={isGenerating}
+                  disabled={isGenerating || !canRegenerate()}
                   className="px-8 py-4 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium text-lg transition-all"
+                  title={!canRegenerate() ? '重新生成次数已用完' : `剩余 ${remainingCount} 次`}
                 >
                   <span className="flex items-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
                     重新生成
+                    {remainingCount > 0 && (
+                      <span className="text-sm text-gray-500">({remainingCount}/3)</span>
+                    )}
+                    {remainingCount === 0 && (
+                      <span className="text-sm text-red-500">(已用完)</span>
+                    )}
                   </span>
                 </button>
               </div>

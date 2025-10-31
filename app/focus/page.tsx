@@ -40,11 +40,19 @@ function FocusContent() {
     setSuggestion(foundSuggestion);
     setLoading(false);
 
-    // 加载引导问题
-    loadGuidingQuestions(foundSuggestion);
+    // 加载引导问题 - 传入 savedProfile 以确保使用最新数据
+    loadGuidingQuestions(foundSuggestion, savedProfile);
   }, [suggestionId, router]);
 
-  const loadGuidingQuestions = async (sug: Suggestion) => {
+  const loadGuidingQuestions = async (sug: Suggestion, currentProfile: UserProfile) => {
+    // 先检查是否已经有缓存的问题
+    if (sug.guidingQuestions && sug.guidingQuestions.length > 0) {
+      console.log('✅ 使用缓存的引导问题,跳过 API 调用');
+      setGuidingQuestions(sug.guidingQuestions);
+      return;
+    }
+
+    console.log('🔄 未找到缓存,开始生成引导问题...');
     setQuestionsLoading(true);
     setQuestionsError(null);
 
@@ -64,7 +72,21 @@ function FocusContent() {
       }
 
       const data = await response.json();
-      setGuidingQuestions(data.questions || []);
+      const questions = data.questions || [];
+      setGuidingQuestions(questions);
+
+      // 将问题保存到 localStorage
+      if (questions.length > 0) {
+        const updatedProfile = { ...currentProfile };
+        const suggestionIndex = updatedProfile.suggestions.findIndex(s => s.id === sug.id);
+        if (suggestionIndex !== -1) {
+          updatedProfile.suggestions[suggestionIndex].guidingQuestions = questions;
+          updatedProfile.updatedAt = new Date().toISOString();
+          saveProfile(updatedProfile);
+          setProfile(updatedProfile);
+          console.log('💾 引导问题已保存到缓存');
+        }
+      }
     } catch (error) {
       console.error('加载引导问题失败:', error);
       setQuestionsError('加载引导问题失败,请刷新重试');

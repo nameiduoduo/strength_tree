@@ -27,6 +27,7 @@ export interface Suggestion {
   referencePoints: string[];  // 参考要点(用于生成引导问题)
   tasks: Task[];               // AI 生成的参考任务(在 Growth 页面显示)
   userTasks?: Task[];          // 用户在 Focus 页面自己添加的行动任务
+  guidingQuestions?: string[]; // 缓存的引导问题,避免重复请求 API
 }
 
 // 单个才干解读
