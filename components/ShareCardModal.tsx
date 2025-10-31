@@ -216,10 +216,10 @@ export default function ShareCardModal({
                     </svg>
                     重新生成
                     {remainingCount > 0 && (
-                      <span className="text-sm text-gray-500">({remainingCount}/3)</span>
+                      <span className="text-sm text-gray-500">({3 - remainingCount}/3)</span>
                     )}
                     {remainingCount === 0 && (
-                      <span className="text-sm text-red-500">(已用完)</span>
+                      <span className="text-sm text-red-500">(3/3)</span>
                     )}
                   </span>
                 </button>
