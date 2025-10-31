@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { UserProfile } from '@/types';
-import { loadProfile, } from '@/lib/storage';
+import { loadProfile } from '@/lib/storage';
 import TaskChecklist from '@/components/TaskChecklist';
 
 export default function GrowthPage() {

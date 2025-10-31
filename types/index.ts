@@ -42,6 +42,21 @@ export interface Analysis {
   categoryAnalysis: string; // 4个维度的协同分析
 }
 
+// 才干组合分析
+export interface TalentCombination {
+  talents: string[];  // 2-3个才干的组合
+  emoji: string;      // emoji图标
+  analysis: string;   // 组合分析文本
+}
+
+// 才干标签
+export interface TalentLabel {
+  label: string;                      // 标签名称
+  description: string;                // 标签描述
+  talentCombinations: TalentCombination[];  // 才干组合分析
+  generatedAt: string;                // 生成时间
+}
+
 // 用户档案接口
 export interface UserProfile {
   id: string;
@@ -50,6 +65,7 @@ export interface UserProfile {
   analysis: Analysis | null;    // AI解读
   suggestions: Suggestion[];    // 建议列表
   progress: number;             // 完成进度 0-100
+  talentLabel?: TalentLabel;    // 才干标签(用于分享卡片)
   createdAt: string;
   updatedAt: string;
 }

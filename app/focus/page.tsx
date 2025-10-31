@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { UserProfile, Suggestion } from '@/types';
 import { loadProfile, saveProfile, calculateProgress } from '@/lib/storage';
 import DynamicGrowthTree from '@/components/DynamicGrowthTree';
+import ShareCardModal from '@/components/ShareCardModal';
 
 function FocusContent() {
   const router = useRouter();
@@ -20,6 +21,7 @@ function FocusContent() {
   const [questionsError, setQuestionsError] = useState<string | null>(null);
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [editingContent, setEditingContent] = useState('');
+  const [showShareModal, setShowShareModal] = useState(false);
 
   useEffect(() => {
     const savedProfile = loadProfile();
@@ -195,6 +197,10 @@ function FocusContent() {
     router.push('/growth');
   };
 
+  const handleProfileUpdate = (updatedProfile: UserProfile) => {
+    setProfile(updatedProfile);
+  };
+
   if (loading || !suggestion || !profile) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -226,12 +232,25 @@ function FocusContent() {
             <span>返回所有建议</span>
           </button>
 
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            专注成长 🎯
-          </h1>
-          <p className="text-gray-600">
-            聚焦于这一个目标,制定具体行动计划
-          </p>
+          <div className="flex items-start justify-between mb-2">
+            <div className="flex-1">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                专注成长 🎯
+              </h1>
+              <p className="text-gray-600">
+                聚焦于这一个目标,制定具体行动计划
+              </p>
+            </div>
+            <button
+              onClick={() => setShowShareModal(true)}
+              className="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-xl hover:from-green-600 hover:to-teal-600 font-medium shadow-lg hover:shadow-xl transition-all flex items-center gap-2 flex-shrink-0 ml-4"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+              生成成长卡片
+            </button>
+          </div>
         </div>
 
         {/* 主要内容 */}
@@ -480,19 +499,39 @@ function FocusContent() {
             <h3 className="text-2xl font-bold text-green-800 mb-2">
               恭喜你完成了这个目标!
             </h3>
-            <p className="text-green-700 mb-4">
+            <p className="text-green-700 mb-6">
               你的成长之树已经茁壮成长,继续保持这份动力!
             </p>
-            <button
-              onClick={handleBackToGrowth}
-              className="px-6 py-3 text-white rounded-lg hover:bg-[#01a86a] font-medium"
-              style={{ backgroundColor: '#02BD7D' }}
-            >
-              查看其他建议
-            </button>
+            <div className="flex items-center justify-center gap-4">
+              <button
+                onClick={() => setShowShareModal(true)}
+                className="px-8 py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-xl hover:from-green-600 hover:to-teal-600 font-medium shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+                生成我的成长卡片
+              </button>
+              <button
+                onClick={handleBackToGrowth}
+                className="px-6 py-3 text-gray-700 bg-white rounded-lg hover:bg-gray-50 font-medium border-2 border-gray-200 transition-all"
+              >
+                查看其他建议
+              </button>
+            </div>
           </div>
         )}
       </div>
+
+      {/* 分享卡片弹窗 */}
+      {profile && (
+        <ShareCardModal
+          profile={profile}
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          onProfileUpdate={handleProfileUpdate}
+        />
+      )}
     </div>
   );
 }
