@@ -25,7 +25,7 @@ export default function ShareCardModal({
   const [error, setError] = useState<string | null>(null);
 
   // 生成才干标签
-  const generateTalentLabel = async (isRegenerate = false) => {
+  const generateTalentLabel = async () => {
     setIsGenerating(true);
     setError(null);
 
@@ -78,6 +78,7 @@ export default function ShareCardModal({
     if (isOpen && !talentLabel && !isGenerating && !error) {
       generateTalentLabel();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   // 下载卡片为图片
@@ -121,7 +122,7 @@ export default function ShareCardModal({
   // 重新生成
   const handleRegenerate = () => {
     if (confirm('确定要重新生成才干标签吗?')) {
-      generateTalentLabel(true);
+      generateTalentLabel();
     }
   };
 
